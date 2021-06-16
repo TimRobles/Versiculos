@@ -45,13 +45,17 @@ def subirHistorial(data):
 def agregarHistorial(key, value):
     data=leerHistorial()
     if not key in data: data[key]=[]
-    data[key].append(value)
-    subirHistorial(data)
+    if not value in data[key]:
+        data[key].append(value)
+        subirHistorial(data)
 
 def esnumero(texto):
     try:
-        numero=float(texto)
-        return True
+        numero=int(texto)
+        if str(numero)==texto:
+            return True
+
+        return False
     except Exception as e:
         return False
 
@@ -93,10 +97,18 @@ class Principal(QMainWindow):
         self.mostrar=Mostrar()
         self.mostrar.show()
         self.datosMostrar()
-
+        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(self.data["sbTransparenciaMax"]*255/100)]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
-        self.hsTransparencia.valueChanged.connect(self.escalarTransparencia)
+        self.animacionTextoDesaparecer=QPropertyAnimation(self.hsTransparenciaTexto, b'value')
+        self.animacionTextoAparecer=QPropertyAnimation(self.hsTransparenciaTexto, b'value')
+        self.anim_group = QSequentialAnimationGroup()
+        self.anim_group.addAnimation(self.animacionTextoDesaparecer)
+        self.anim_group.addAnimation(self.animacionTextoAparecer)
+
+        self.hsTransparencia.valueChanged.connect(self.escalarTransparenciaTotal)
+        self.hsTransparenciaTexto.valueChanged.connect(self.escalarTransparenciaTexto)
+        self.sbTransparenciaMax.valueChanged.connect(self.guardarTransparencia)
 
         self.btnColorFuente.clicked.connect(self.seleccionarColorFuente)
         self.btnColorFondo.clicked.connect(self.seleccionarColorFondo)
@@ -128,7 +140,6 @@ class Principal(QMainWindow):
         self.mostrar.textEdit.setMinimumSize(self.data["sbAncho"], self.data["sbAltura"])
         self.mostrar.widget.setMaximumSize(self.data["sbAncho"], self.data["sbMargen"])
         self.mostrar.widget.setMinimumSize(self.data["sbAncho"], self.data["sbMargen"])
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"]), ",".join(self.data["colorFuente"])))
 
     def seleccionarColorFuente(self):
         colorInicial=QColor()
@@ -157,6 +168,11 @@ class Principal(QMainWindow):
             modificarData("colorFuente", ["0", "0", "0", "255"])
         if not "colorFondo" in self.data:
             modificarData("colorFondo", ["138", "226", "52", "255"])
+        if "sbTransparenciaMax" in self.data:
+            self.sbTransparenciaMax.setValue(self.data["sbTransparenciaMax"])
+        else:
+            self.sbTransparenciaMax.setValue(100)
+            modificarData("sbTransparenciaMax", 100)
         if "sbAltura" in self.data:
             self.sbAltura.setValue(self.data["sbAltura"])
         else:
@@ -188,7 +204,7 @@ class Principal(QMainWindow):
             for dato in versiones:
                 self.cbBiblia.addItem(dato)
         self.cargarVersion()
-        self.hsTransparencia.setValue(int(round(float(self.data["colorFuente"][3])*100/255,0)))
+        self.hsTransparencia.setValue(int(self.data["sbTransparenciaMax"]))
 
     def cargarLibros(self):
         self.cbLibro.clear()
@@ -252,6 +268,10 @@ class Principal(QMainWindow):
 
                 if verMas2 in range(self.cbVersiculo.count()-1): self.tePrevMas2.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2]))
 
+    def guardarTransparencia(self):
+        modificarData("sbTransparenciaMax", self.sbTransparenciaMax.value())
+        self.datosMostrar()
+
     def guardarAltura(self):
         modificarData("sbAltura", self.sbAltura.value())
         self.datosMostrar()
@@ -283,8 +303,15 @@ class Principal(QMainWindow):
                 buscarIndex(self.cbLibro, " ".join(division[0:2]))
 
             try:
-                buscarIndex(self.cbCapitulo, numeros[0])
+                print("Probando1")
+                if esnumero(division[1]):
+                    print("Primero", division[1])
+                    buscarIndex(self.cbCapitulo, division[1])
+                else:
+                    print("Segundo", numeros[0])
+                    buscarIndex(self.cbCapitulo, numeros[0])
             except Exception as e:
+                print("Error")
                 self.cbCapitulo.setCurrentIndex(0)
             try:
                 buscarIndex(self.cbVersiculo, numeros[1])
@@ -322,16 +349,43 @@ class Principal(QMainWindow):
         self.cambiar=True
 
     def enviarVersiculo(self):
-        self.mostrar.textEdit.clear()
-        self.mostrar.textEdit.insertHtml(self.tePrev.toHtml())
+        if self.hsTransparencia.value()==0: return
+        self.mostrarVersiculo=True
+        self.animacionTextoDesaparecer.setDuration(10*(self.hsTransparenciaTexto.value()))
+        self.animacionTextoAparecer.setDuration(10*(self.sbTransparenciaMax.value()))
+
+        self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
+        self.animacionTextoDesaparecer.setEndValue(0)
+
+        self.animacionTextoAparecer.setStartValue(0)
+        self.animacionTextoAparecer.setEndValue(self.sbTransparenciaMax.value())
+
+        self.anim_group.start()
+
         agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
         self.cargarHistorial()
 
     def limpiarVersiculo(self):
-        self.mostrar.textEdit.clear()
+        if self.hsTransparencia.value()==0: return
+        self.mostrarVersiculo=True
+        if self.hsTransparenciaTexto.value()>0:
+            self.animacionTextoDesaparecer.setDuration(10*self.hsTransparenciaTexto.value())
+            self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
+            self.animacionTextoDesaparecer.setEndValue(0)
+            self.animacionTextoDesaparecer.start()
 
-    def escalarTransparencia(self, value):
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
+    def escalarTransparenciaTexto(self, value):
+        if value in [0,1]:
+            self.mostrar.textEdit.clear()
+            if self.mostrarVersiculo:
+                self.mostrar.textEdit.insertHtml(self.tePrev.toHtml())
+        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(self.hsTransparencia.value()*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
+
+    def escalarTransparenciaTotal(self, value):
+        if self.hsTransparenciaTexto.value()==0:
+            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
+        else:
+            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
         modificarData("colorFuente", self.data["colorFuente"][0:-1]+[str(value*255/100)])
         modificarData("colorFondo", self.data["colorFondo"][0:-1]+[str(value*255/100)])
         if value==0:
@@ -347,9 +401,9 @@ class Principal(QMainWindow):
             self.animacion.start()
             self.btnOcultarMostrar.setText("Mostrar")
         else:
-            self.animacion.setDuration(10*(100-self.hsTransparencia.value()))
+            self.animacion.setDuration(10*(self.sbTransparenciaMax.value()-self.hsTransparencia.value()))
             self.animacion.setStartValue(self.hsTransparencia.value())
-            self.animacion.setEndValue(100)
+            self.animacion.setEndValue(self.sbTransparenciaMax.value())
             self.animacion.start()
             self.btnOcultarMostrar.setText("Ocultar")
 

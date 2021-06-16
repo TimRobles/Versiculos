@@ -222,12 +222,29 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksBothSides</enum>
+        </property>
        </widget>
       </item>
-      <item row="0" column="7">
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>Transparencia Max:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
        <widget class="QPushButton" name="btnSiguiente">
         <property name="text">
          <string>Siguiente</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QSpinBox" name="sbTransparenciaMax">
+        <property name="maximum">
+         <number>100</number>
         </property>
        </widget>
       </item>
@@ -238,7 +255,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
+      <item row="0" column="7">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -265,10 +282,23 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="6">
+      <item row="0" column="9">
        <widget class="QPushButton" name="btnAnterior">
         <property name="text">
          <string>Anterior</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="QSlider" name="hsTransparenciaTexto">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
         </property>
        </widget>
       </item>
@@ -339,15 +369,47 @@
  <tabstops>
   <tabstop>sbAltura</tabstop>
   <tabstop>sbAncho</tabstop>
+  <tabstop>sbMargen</tabstop>
+  <tabstop>btnColorFuente</tabstop>
+  <tabstop>btnColorFondo</tabstop>
   <tabstop>cbBiblia</tabstop>
   <tabstop>sbFuente</tabstop>
+  <tabstop>deFecha</tabstop>
   <tabstop>cbHistorial</tabstop>
   <tabstop>lePasaje</tabstop>
+  <tabstop>cbLibro</tabstop>
+  <tabstop>cbCapitulo</tabstop>
+  <tabstop>cbVersiculo</tabstop>
+  <tabstop>tePrev</tabstop>
+  <tabstop>btnEnviar</tabstop>
   <tabstop>btnLimpiar</tabstop>
+  <tabstop>btnOcultarMostrar</tabstop>
+  <tabstop>hsTransparencia</tabstop>
+  <tabstop>sbTransparenciaMax</tabstop>
+  <tabstop>btnAnterior</tabstop>
   <tabstop>btnSiguiente</tabstop>
   <tabstop>tePrevMenos1</tabstop>
+  <tabstop>tePrevMas1</tabstop>
   <tabstop>tePrevMenos2</tabstop>
+  <tabstop>tePrevMas2</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lePasaje</sender>
+   <signal>returnPressed()</signal>
+   <receiver>btnEnviar</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>115</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>41</x>
+     <y>322</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -3,19 +3,20 @@
         "0",
         "0",
         "0",
-        "255.0"
+        "229.5"
     ],
     "colorFondo": [
-        "252",
         "233",
-        "79",
-        "255.0"
+        "185",
+        "110",
+        "229.5"
     ],
-    "sbAltura": 130,
+    "sbAltura": 148,
     "sbAncho": 1600,
-    "sbMargen": 0,
-    "sbFuente": 34,
+    "sbMargen": 10,
+    "sbFuente": 41,
     "cbBiblia": {
         "RVR60": "RVR60.json"
-    }
+    },
+    "sbTransparenciaMax": 90
 }
