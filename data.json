@@ -1,21 +1,20 @@
 {
     "colorFuente": [
-        "238",
-        "238",
-        "236",
-        "255"
+        "0",
+        "0",
+        "0",
+        "255.0"
     ],
     "colorFondo": [
-        "164",
-        "0",
-        "0",
-        "255"
+        "252",
+        "233",
+        "79",
+        "255.0"
     ],
-    "sbAltura": 100,
-    "sbAncho": 100,
-    "sbMargen": 100,
-    "sbFuente": 12,
-    "cbHistorial": [],
+    "sbAltura": 130,
+    "sbAncho": 1600,
+    "sbMargen": 0,
+    "sbFuente": 34,
     "cbBiblia": {
         "RVR60": "RVR60.json"
     }
