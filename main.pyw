@@ -1,77 +1,4 @@
-import requests, sys, os, json, time
-from datetime import date
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, uic
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
-tildes={'Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U','Ü':'U'}
-urlBase="https://api.scripture.api.bible"
-token='d1eded304a6a68a4befc685b42447bcf'
-
-def QDateASQL(QFecha):
-    return "%s-%s-%s" % (str(QFecha.date().year()), "0"*(2-len(str(QFecha.date().month()))) + str(QFecha.date().month()), "0"*(2-len(str(QFecha.date().day()))) + str(QFecha.date().day()))
-
-def leerData():
-    try:
-        with open('data.json') as file:
-            return json.load(file)
-    except Exception as e:
-        with open('data.json', 'w') as file:
-            json.dump({}, file, indent=4)
-            return {}
-
-def subirData(data):
-    with open('data.json', 'w') as file:
-        json.dump(data, file, indent=4)
-
-def modificarData(key, value):
-    data=leerData()
-    data[key]=value
-    subirData(data)
-
-def leerHistorial():
-    try:
-        with open('historial.json') as file:
-            return json.load(file)
-    except Exception as e:
-        with open('historial.json', 'w') as file:
-            json.dump({str(date.today()):[]}, file, indent=4)
-            return {str(date.today()):[]}
-
-def subirHistorial(data):
-    with open('historial.json', 'w') as file:
-        json.dump(data, file, indent=4)
-
-def agregarHistorial(key, value):
-    data=leerHistorial()
-    if not key in data: data[key]=[]
-    if not value in data[key]:
-        data[key].append(value)
-        subirHistorial(data)
-
-def esnumero(texto):
-    try:
-        numero=int(texto)
-        if str(numero)==texto:
-            return True
-
-        return False
-    except Exception as e:
-        return False
-
-def quitarTildes(texto):
-    textoSinTildes=texto
-    for k,v in tildes.items():
-        textoSinTildes=textoSinTildes.replace(k,v)
-        textoSinTildes=textoSinTildes.replace(k.lower(),v.lower())
-    return textoSinTildes
-
-def buscarIndex(cb,texto):
-    for i in range(cb.count()):
-        if quitarTildes(texto.lower())==quitarTildes(cb.itemText(i).lower())[0:len(texto)]:
-            cb.setCurrentIndex(i)
-            return
-    cb.setCurrentIndex(0)
+from funciones import *
 
 class Mostrar(QMainWindow):
     def __init__(self):
@@ -89,7 +16,6 @@ class Principal(QMainWindow):
 
         self.deFecha.setDate(date.today())
         self.showMaximized()
-        self.data=leerData()
         self.cargarHistorial()
         self.cargarDatos()
         self.cargarLibros()
@@ -128,11 +54,28 @@ class Principal(QMainWindow):
         self.cbCapitulo.currentIndexChanged.connect(self.cargarVersiculos)
         self.cbVersiculo.currentIndexChanged.connect(self.leerVersiculo)
 
-        self.btnEnviar.clicked.connect(self.enviarVersiculo)
-        self.btnLimpiar.clicked.connect(self.limpiarVersiculo)
+        self.btnEnviar.clicked.connect(self.enviarPrevisualizacion)
+        self.btnLimpiar.clicked.connect(self.limpiarPrevisualizacion)
         self.btnOcultarMostrar.clicked.connect(self.ocultarMostrar)
-        self.btnSiguiente.clicked.connect(self.siguiente)
-        self.btnAnterior.clicked.connect(self.anterior)
+        self.btnSiguienteV.clicked.connect(self.siguienteVersiculo)
+        self.btnAnteriorV.clicked.connect(self.anteriorVersiculo)
+
+        self.btnGuardarCondV.clicked.connect(self.guardarCondicionesV)
+        self.btnCargarCondV.clicked.connect(self.cargarCondicionesV)
+        self.btnGuardarCondC.clicked.connect(self.guardarCondicionesC)
+        self.btnCargarCondC.clicked.connect(self.cargarCondicionesC)
+
+        self.cargarCanciones()
+        self.cargarCancionesHoy()
+
+        self.btnBuscarCancion.clicked.connect(self.buscarCancion)
+        self.btnCargarTodas.clicked.connect(self.cargarTodas)
+        self.btnActualizar.clicked.connect(self.cargarCanciones)
+        self.twCancionesRegistradas.itemDoubleClicked.connect(self.agregarCancion)
+        self.twCancionesHoy.itemDoubleClicked.connect(self.elegirCancion)
+        self.twLetras.itemDoubleClicked.connect(self.elegirLetra)
+        self.btnSiguienteC.clicked.connect(self.siguienteParrafo)
+        self.btnAnteriorC.clicked.connect(self.anteriorParrafo)
 
     def datosMostrar(self):
         self.data=leerData()
@@ -159,11 +102,13 @@ class Principal(QMainWindow):
 
     def cargarVersion(self):
         self.data=leerData()
+        if self.cbBiblia.currentText()=="": return
         version=self.data["cbBiblia"][self.cbBiblia.currentText()]
         with open(version) as file:
             self.biblia=json.load(file)
 
     def cargarDatos(self):
+        self.data=leerData()
         if not "colorFuente" in self.data:
             modificarData("colorFuente", ["0", "0", "0", "255"])
         if not "colorFondo" in self.data:
@@ -236,6 +181,19 @@ class Principal(QMainWindow):
                 for i in range(len(libro["capitulos"][int(self.cbCapitulo.currentText())-1])):
                     self.cbVersiculo.addItem(str(i+1))
 
+    def cargarTextos(self, previsual, prevMenos1, prevMenos2, prevMas1, prevMas2):
+        self.tePrev.clear()
+        self.tePrevMas1.clear()
+        self.tePrevMas2.clear()
+        self.tePrevMenos1.clear()
+        self.tePrevMenos2.clear()
+
+        self.tePrev.insertHtml("<div>" + previsual + "</div>")
+        self.tePrevMenos1.insertHtml("<div>" + prevMenos1 + "</div>")
+        self.tePrevMenos2.insertHtml("<div>" + prevMenos2 + "</div>")
+        self.tePrevMas1.insertHtml("<div>" + prevMas1 + "</div>")
+        self.tePrevMas2.insertHtml("<div>" + prevMas2 + "</div>")
+
     def leerVersiculo(self):
         if self.cbVersiculo.currentText()=="--VERSICULO--" or self.cbVersiculo.currentText()=="":
             self.tePrev.clear()
@@ -246,11 +204,6 @@ class Principal(QMainWindow):
             return
         for libro in self.biblia:
             if libro["nombre"]==self.cbLibro.currentText():
-                self.tePrev.clear()
-                self.tePrevMas1.clear()
-                self.tePrevMas2.clear()
-                self.tePrevMenos1.clear()
-                self.tePrevMenos2.clear()
                 capitulo=int(self.cbCapitulo.currentText())-1
                 versiculo=int(self.cbVersiculo.currentText())-1
                 verMenos1=versiculo-1
@@ -258,15 +211,23 @@ class Principal(QMainWindow):
                 verMas1=versiculo+1
                 verMas2=versiculo+2
 
-                self.tePrev.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.sbFuente.value(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText()))
+                previsual=""
+                prevMenos1=""
+                prevMenos2=""
+                prevMas1=""
+                prevMas2=""
 
-                if verMenos1 in range(self.cbVersiculo.count()-1): self.tePrevMenos1.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1]))
+                previsual='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.sbFuente.value(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
 
-                if verMenos2 in range(self.cbVersiculo.count()-1): self.tePrevMenos2.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2]))
+                if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
 
-                if verMas1 in range(self.cbVersiculo.count()-1): self.tePrevMas1.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1]))
+                if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
 
-                if verMas2 in range(self.cbVersiculo.count()-1): self.tePrevMas2.insertHtml('<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2]))
+                if verMas1 in range(self.cbVersiculo.count()-1): prevMas1='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1])
+
+                if verMas2 in range(self.cbVersiculo.count()-1): prevMas2='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2])
+
+                self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
 
     def guardarTransparencia(self):
         modificarData("sbTransparenciaMax", self.sbTransparenciaMax.value())
@@ -303,15 +264,11 @@ class Principal(QMainWindow):
                 buscarIndex(self.cbLibro, " ".join(division[0:2]))
 
             try:
-                print("Probando1")
                 if esnumero(division[1]):
-                    print("Primero", division[1])
                     buscarIndex(self.cbCapitulo, division[1])
                 else:
-                    print("Segundo", numeros[0])
                     buscarIndex(self.cbCapitulo, numeros[0])
             except Exception as e:
-                print("Error")
                 self.cbCapitulo.setCurrentIndex(0)
             try:
                 buscarIndex(self.cbVersiculo, numeros[1])
@@ -348,7 +305,7 @@ class Principal(QMainWindow):
             self.cbHistorial.clear()
         self.cambiar=True
 
-    def enviarVersiculo(self):
+    def enviarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
         self.animacionTextoDesaparecer.setDuration(10*(self.hsTransparenciaTexto.value()))
@@ -362,10 +319,7 @@ class Principal(QMainWindow):
 
         self.anim_group.start()
 
-        agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
-        self.cargarHistorial()
-
-    def limpiarVersiculo(self):
+    def limpiarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
         if self.hsTransparenciaTexto.value()>0:
@@ -375,6 +329,22 @@ class Principal(QMainWindow):
             self.animacionTextoDesaparecer.start()
 
     def escalarTransparenciaTexto(self, value):
+        if value<self.sbTransparenciaMax.value():
+            self.btnEnviar.setEnabled(False)
+            self.btnLimpiar.setEnabled(False)
+            self.btnOcultarMostrar.setEnabled(False)
+            self.btnAnteriorC.setEnabled(False)
+            self.btnSiguienteC.setEnabled(False)
+            self.btnAnteriorV.setEnabled(False)
+            self.btnSiguienteV.setEnabled(False)
+        if value==self.sbTransparenciaMax.value() or value==0:
+            self.btnEnviar.setEnabled(True)
+            self.btnLimpiar.setEnabled(True)
+            self.btnOcultarMostrar.setEnabled(True)
+            self.btnAnteriorC.setEnabled(True)
+            self.btnSiguienteC.setEnabled(True)
+            self.btnAnteriorV.setEnabled(True)
+            self.btnSiguienteV.setEnabled(True)
         if value in [0,1]:
             self.mostrar.textEdit.clear()
             if self.mostrarVersiculo:
@@ -382,6 +352,23 @@ class Principal(QMainWindow):
         self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(self.hsTransparencia.value()*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
 
     def escalarTransparenciaTotal(self, value):
+        if value<self.sbTransparenciaMax.value():
+            self.btnEnviar.setEnabled(False)
+            self.btnLimpiar.setEnabled(False)
+            self.btnOcultarMostrar.setEnabled(False)
+            self.btnAnteriorC.setEnabled(False)
+            self.btnSiguienteC.setEnabled(False)
+            self.btnAnteriorV.setEnabled(False)
+            self.btnSiguienteV.setEnabled(False)
+        if value==self.sbTransparenciaMax.value() or value==0:
+            self.btnEnviar.setEnabled(True)
+            self.btnLimpiar.setEnabled(True)
+            self.btnOcultarMostrar.setEnabled(True)
+            self.btnAnteriorC.setEnabled(True)
+            self.btnSiguienteC.setEnabled(True)
+            self.btnAnteriorV.setEnabled(True)
+            self.btnSiguienteV.setEnabled(True)
+
         if self.hsTransparenciaTexto.value()==0:
             self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
         else:
@@ -407,15 +394,173 @@ class Principal(QMainWindow):
             self.animacion.start()
             self.btnOcultarMostrar.setText("Ocultar")
 
-    def siguiente(self):
+    def siguienteVersiculo(self):
         if self.cbLibro.currentText() in self.tePrevMas1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()+1)
-            self.enviarVersiculo()
+            self.enviarPrevisualizacion()
+            agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
+            self.cargarHistorial()
 
-    def anterior(self):
+    def anteriorVersiculo(self):
         if self.cbLibro.currentText() in self.tePrevMenos1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()-1)
-            self.enviarVersiculo()
+            self.enviarPrevisualizacion()
+            agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
+            self.cargarHistorial()
+
+    def agregarBotonEliminar(self, tw, columna):
+        for i in range(tw.topLevelItemCount()):
+            item=tw.topLevelItem(i)
+            buttonEliminar = QPushButton("Eliminar", tw)
+            buttonEliminar.clicked.connect(lambda checked=False, identificador=item.text(5): self.quitarCancion(identificador))
+            tw.setItemWidget(item, columna, buttonEliminar)
+
+    def agregarBotonActualizar(self, tw, columna):
+        for i in range(tw.topLevelItemCount()):
+            item=tw.topLevelItem(i)
+            buttonActualizar = QPushButton("Actualizar", tw)
+            buttonActualizar.clicked.connect(lambda checked=False, identificador=item.text(5): self.actualizarCancion(identificador))
+            tw.setItemWidget(item, columna, buttonActualizar)
+
+    def cargarCancionesHoy(self):
+        self.canciones=leerCanciones()
+        self.twCancionesHoy.clear()
+        self.twLetras.clear()
+        self.leCancionSeleccionada.clear()
+        lista=self.canciones["Canciones Hoy"]
+        for urlCancion in lista:
+            dato=self.canciones[urlCancion]
+            cancion=dato[2]
+            artista=dato[0]
+            album=dato[1]
+            fila=[cancion, artista, album, "", "", urlCancion]
+            insertarFila(self.twCancionesHoy, fila)
+        self.agregarBotonActualizar(self.twCancionesHoy, 3)
+        self.agregarBotonEliminar(self.twCancionesHoy, 4)
+
+    def cargarCanciones(self):
+        self.canciones=leerCanciones()
+        self.twCancionesRegistradas.clear()
+        self.twCancionesRegistradas.sortItems(0, Qt.AscendingOrder)
+        for url,v in self.canciones.items():
+            if url!="Canciones Hoy":
+                cancion=v[2]
+                artista=v[0]
+                album=v[1]
+                fila=[cancion, artista, album, url]
+                insertarFila(self.twCancionesRegistradas, fila)
+
+    def buscarCancion(self):
+        url=self.leUrlCancion.text()
+        if buscarLetra(url):
+            self.leUrlCancion.clear()
+            self.cargarCanciones()
+
+    def cargarTodas(self):
+        abrirPrograma("actualizar_canciones.py")
+
+    def agregarCancion(self):
+        self.canciones=leerCanciones()
+        lista=self.canciones["Canciones Hoy"]
+        lista.append(self.twCancionesRegistradas.currentItem().text(3))
+        modificarCanciones("Canciones Hoy", lista)
+        self.cargarCancionesHoy()
+
+    def quitarCancion(self, url):
+        self.canciones=leerCanciones()
+        lista=self.canciones["Canciones Hoy"]
+        for i in range(len(lista)):
+            if lista[i]==url:
+                indice=i
+        lista.pop(indice)
+        modificarCanciones("Canciones Hoy", lista)
+        self.cargarCancionesHoy()
+
+    def elegirCancion(self, item):
+        self.leCancionSeleccionada.setText(item.text(0))
+        self.canciones=leerCanciones()
+        letras=self.canciones[item.text(5)][3]
+        self.twLetras.clear()
+        parrafo=[]
+        for letra in letras.splitlines():
+            if letra=="":
+                insertarFila(self.twLetras, ["\n".join(parrafo)])
+                parrafo=[]
+            else:
+                parrafo.append(letra)
+
+    def actualizarCancion(self, url):
+        print(url)
+        print(buscarLetra(url))
+
+    def elegirLetra(self, item):
+        indice=-1
+        for i in range(self.twLetras.topLevelItemCount()):
+            if item==self.twLetras.topLevelItem(i): indice=i
+        if indice==-1:
+            self.lblItemIndex.setText(str(indice))
+            return
+
+        self.lblItemIndex.setText(str(indice))
+        previsual=""
+        prevMenos1=""
+        prevMenos2=""
+        prevMas1=""
+        prevMas2=""
+
+        previsual='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value(), item.text(0).replace("\n",'<br>'))
+
+        if indice>0:
+            prevMenos1='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-1).text(0).replace("\n",'<br>'))
+        if indice>1:
+            prevMenos2='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-2).text(0).replace("\n",'<br>'))
+        if indice<self.twLetras.topLevelItemCount()-2:
+            prevMas1='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+1).text(0).replace("\n",'<br>'))
+        if indice<self.twLetras.topLevelItemCount()-3:
+            prevMas2='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+2).text(0).replace("\n",'<br>'))
+        self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
+
+    def guardarCondicionesV(self):
+        modificarData("sbAlturaV", self.sbAltura.value())
+        modificarData("sbAnchoV", self.sbAncho.value())
+        modificarData("sbMargenV", self.sbMargen.value())
+        modificarData("sbFuenteV", self.sbFuente.value())
+
+    def cargarCondicionesV(self):
+        self.data=leerData()
+        modificarData("sbAltura", self.data["sbAlturaV"])
+        modificarData("sbAncho", self.data["sbAnchoV"])
+        modificarData("sbMargen", self.data["sbMargenV"])
+        modificarData("sbFuente", self.data["sbFuenteV"])
+        self.cargarDatos()
+        self.enviarPrevisualizacion()
+
+    def guardarCondicionesC(self):
+        modificarData("sbAlturaC", self.sbAltura.value())
+        modificarData("sbAnchoC", self.sbAncho.value())
+        modificarData("sbMargenC", self.sbMargen.value())
+        modificarData("sbFuenteC", self.sbFuente.value())
+
+    def cargarCondicionesC(self):
+        self.data=leerData()
+        modificarData("sbAltura", self.data["sbAlturaC"])
+        modificarData("sbAncho", self.data["sbAnchoC"])
+        modificarData("sbMargen", self.data["sbMargenC"])
+        modificarData("sbFuente", self.data["sbFuenteC"])
+        self.cargarDatos()
+        self.enviarPrevisualizacion()
+
+    def siguienteParrafo(self):
+        if self.lblItemIndex.text()=="-1": return
+        if int(self.lblItemIndex.text())<self.twLetras.topLevelItemCount()-2:
+            self.elegirLetra(self.twLetras.topLevelItem(int(self.lblItemIndex.text())+1))
+            self.enviarPrevisualizacion()
+
+    def anteriorParrafo(self):
+        if self.lblItemIndex.text()=="-1": return
+        if int(self.lblItemIndex.text())>0:
+            self.elegirLetra(self.twLetras.topLevelItem(int(self.lblItemIndex.text())-1))
+            self.enviarPrevisualizacion()
 
 app=QApplication(sys.argv) #Instancia para iniciar una aplicación
 _main=Principal() #Crear un objeto de la clase / Como el Load en VBA

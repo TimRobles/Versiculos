@@ -7,15 +7,22 @@
     <x>0</x>
     <y>0</y>
     <width>1241</width>
-    <height>715</height>
+    <height>904</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Versiculos</string>
+   <string>Letras Culto</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_8">
-    <item row="0" column="0">
+   <layout class="QGridLayout" name="gridLayout_9">
+    <item row="5" column="4">
+     <widget class="QLabel" name="label_11">
+      <property name="text">
+       <string>Previsualización +2:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="6">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="2">
        <widget class="QLabel" name="label_2">
@@ -42,13 +49,6 @@
        <widget class="QPushButton" name="btnColorFondo">
         <property name="text">
          <string>Color Fondo</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="9">
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>Biblia:</string>
         </property>
        </widget>
       </item>
@@ -93,9 +93,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="10">
-       <widget class="QComboBox" name="cbBiblia"/>
-      </item>
       <item row="0" column="12">
        <widget class="QSpinBox" name="sbFuente">
         <property name="maximum">
@@ -112,104 +109,17 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Historial:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QComboBox" name="cbHistorial"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDateEdit" name="deFecha">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
+    <item row="5" column="3">
+     <widget class="QTextEdit" name="tePrevMenos2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
     </item>
-    <item row="2" column="0">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Capítulo:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Pasaje:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lePasaje"/>
-      </item>
-      <item row="0" column="5">
-       <widget class="QComboBox" name="cbCapitulo"/>
-      </item>
-      <item row="0" column="6">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Versículo:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="7">
-       <widget class="QComboBox" name="cbVersiculo"/>
-      </item>
-      <item row="0" column="3">
-       <widget class="QComboBox" name="cbLibro"/>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="0">
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Previsualización:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QTextEdit" name="tePrev"/>
-      </item>
-     </layout>
-    </item>
-    <item row="4" column="0">
+    <item row="2" column="0" colspan="6">
      <layout class="QGridLayout" name="gridLayout_7">
       <item row="0" column="4">
        <widget class="QSlider" name="hsTransparencia">
@@ -231,13 +141,6 @@
        <widget class="QLabel" name="label_15">
         <property name="text">
          <string>Transparencia Max:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="10">
-       <widget class="QPushButton" name="btnSiguiente">
-        <property name="text">
-         <string>Siguiente</string>
         </property>
        </widget>
       </item>
@@ -282,15 +185,14 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="9">
-       <widget class="QPushButton" name="btnAnterior">
-        <property name="text">
-         <string>Anterior</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="8">
        <widget class="QSlider" name="hsTransparenciaTexto">
+        <property name="maximumSize">
+         <size>
+          <width>0</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="maximum">
          <number>100</number>
         </property>
@@ -304,53 +206,481 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>Previsualización +1:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>Previsualización -1:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QTextEdit" name="tePrevMenos1"/>
-      </item>
-      <item row="0" column="5">
-       <widget class="QTextEdit" name="tePrevMas1"/>
-      </item>
-     </layout>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_9">
+      <property name="text">
+       <string>Previsualización:</string>
+      </property>
+     </widget>
     </item>
-    <item row="6" column="0">
-     <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="3">
-       <widget class="QTextEdit" name="tePrevMenos2"/>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>Previsualización -2:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>Previsualización +2:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QTextEdit" name="tePrevMas2"/>
-      </item>
-     </layout>
+    <item row="4" column="3">
+     <widget class="QTextEdit" name="tePrevMenos1">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="QTextEdit" name="tePrevMas1">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2" colspan="4">
+     <widget class="QTextEdit" name="tePrev">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="5">
+     <widget class="QTextEdit" name="tePrevMas2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="3">
+     <widget class="QLabel" name="label_12">
+      <property name="text">
+       <string>Previsualización -1:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="6">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_1">
+       <attribute name="title">
+        <string>Versiculos</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="2">
+           <widget class="QComboBox" name="cbHistorial">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_14">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Biblia:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Historial:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="7">
+           <widget class="QPushButton" name="btnCargarCondV">
+            <property name="text">
+             <string>Cargar Condiciones</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QComboBox" name="cbBiblia"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDateEdit" name="deFecha">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="calendarPopup">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="6">
+           <widget class="QPushButton" name="btnGuardarCondV">
+            <property name="text">
+             <string>Guardar Condiciones</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="6">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Versículo:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Capítulo:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="8">
+           <widget class="QPushButton" name="btnAnteriorV">
+            <property name="text">
+             <string>Anterior</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QComboBox" name="cbLibro"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lePasaje"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Pasaje:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QComboBox" name="cbCapitulo"/>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="7">
+           <widget class="QComboBox" name="cbVersiculo"/>
+          </item>
+          <item row="0" column="9">
+           <widget class="QPushButton" name="btnSiguienteV">
+            <property name="text">
+             <string>Siguiente</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>337</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Canciones</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_24">
+        <item row="1" column="1">
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_33">
+            <property name="text">
+             <string>Canciones para Hoy:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTreeWidget" name="twCancionesHoy">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>false</bool>
+            </property>
+            <column>
+             <property name="text">
+              <string>Canción</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Artista</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Álbum</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Actualizar</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Quitar</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Url</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="2">
+         <layout class="QGridLayout" name="gridLayout_21">
+          <item row="1" column="0">
+           <widget class="QTreeWidget" name="twLetras">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <column>
+             <property name="text">
+              <string>Letras</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_20">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_35">
+              <property name="text">
+               <string>Cancion seleccionada:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="leCancionSeleccionada"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_19">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_32">
+            <property name="text">
+             <string>Canciones Registradas:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTreeWidget" name="twCancionesRegistradas">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <column>
+             <property name="text">
+              <string>Canción</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Artista</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Álbum</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Url</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <layout class="QGridLayout" name="gridLayout_22">
+          <item row="0" column="6">
+           <widget class="QPushButton" name="btnGuardarCondC">
+            <property name="text">
+             <string>Guardar Condiciones</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="btnCargarTodas">
+            <property name="text">
+             <string>Cargar Todas</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="7">
+           <widget class="QPushButton" name="btnCargarCondC">
+            <property name="text">
+             <string>Cargar Condiciones</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="8">
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="9">
+           <widget class="QPushButton" name="btnAnteriorC">
+            <property name="text">
+             <string>Anterior</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btnBuscarCancion">
+            <property name="text">
+             <string>Buscar Canción</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>URL Canción:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="leUrlCancion"/>
+          </item>
+          <item row="0" column="5">
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="10">
+           <widget class="QPushButton" name="btnSiguienteC">
+            <property name="text">
+             <string>Siguiente</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QPushButton" name="btnActualizar">
+            <property name="text">
+             <string>Actualizar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item row="4" column="4">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>Previsualización +1:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="3">
+     <widget class="QLabel" name="label_13">
+      <property name="text">
+       <string>Previsualización -2:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLabel" name="lblItemIndex">
+      <property name="text">
+       <string>-1</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -372,26 +702,58 @@
   <tabstop>sbMargen</tabstop>
   <tabstop>btnColorFuente</tabstop>
   <tabstop>btnColorFondo</tabstop>
-  <tabstop>cbBiblia</tabstop>
   <tabstop>sbFuente</tabstop>
-  <tabstop>deFecha</tabstop>
-  <tabstop>cbHistorial</tabstop>
-  <tabstop>lePasaje</tabstop>
-  <tabstop>cbLibro</tabstop>
-  <tabstop>cbCapitulo</tabstop>
-  <tabstop>cbVersiculo</tabstop>
-  <tabstop>tePrev</tabstop>
   <tabstop>btnEnviar</tabstop>
   <tabstop>btnLimpiar</tabstop>
   <tabstop>btnOcultarMostrar</tabstop>
   <tabstop>hsTransparencia</tabstop>
   <tabstop>sbTransparenciaMax</tabstop>
-  <tabstop>btnAnterior</tabstop>
-  <tabstop>btnSiguiente</tabstop>
+  <tabstop>hsTransparenciaTexto</tabstop>
+  <tabstop>tePrev</tabstop>
   <tabstop>tePrevMenos1</tabstop>
   <tabstop>tePrevMas1</tabstop>
   <tabstop>tePrevMenos2</tabstop>
   <tabstop>tePrevMas2</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>deFecha</tabstop>
+  <tabstop>cbHistorial</tabstop>
+  <tabstop>cbBiblia</tabstop>
+  <tabstop>lePasaje</tabstop>
+  <tabstop>cbLibro</tabstop>
+  <tabstop>cbCapitulo</tabstop>
+  <tabstop>cbVersiculo</tabstop>
+  <tabstop>btnOcultarMostrar</tabstop>
+  <tabstop>btnLimpiar</tabstop>
+  <tabstop>btnEnviar</tabstop>
+  <tabstop>btnAnteriorV</tabstop>
+  <tabstop>hsTransparenciaTexto</tabstop>
+  <tabstop>tePrevMenos1</tabstop>
+  <tabstop>tePrevMas1</tabstop>
+  <tabstop>cbHistorial</tabstop>
+  <tabstop>deFecha</tabstop>
+  <tabstop>lePasaje</tabstop>
+  <tabstop>cbCapitulo</tabstop>
+  <tabstop>cbVersiculo</tabstop>
+  <tabstop>cbLibro</tabstop>
+  <tabstop>tePrev</tabstop>
+  <tabstop>tePrevMenos2</tabstop>
+  <tabstop>tePrevMas2</tabstop>
+  <tabstop>sbMargen</tabstop>
+  <tabstop>btnColorFondo</tabstop>
+  <tabstop>sbAltura</tabstop>
+  <tabstop>btnColorFuente</tabstop>
+  <tabstop>cbBiblia</tabstop>
+  <tabstop>sbFuente</tabstop>
+  <tabstop>sbAncho</tabstop>
+  <tabstop>btnSiguienteV</tabstop>
+  <tabstop>sbTransparenciaMax</tabstop>
+  <tabstop>hsTransparencia</tabstop>
+  <tabstop>leUrlCancion</tabstop>
+  <tabstop>btnBuscarCancion</tabstop>
+  <tabstop>twCancionesRegistradas</tabstop>
+  <tabstop>twCancionesHoy</tabstop>
+  <tabstop>leCancionSeleccionada</tabstop>
+  <tabstop>twLetras</tabstop>
  </tabstops>
  <resources/>
  <connections>
