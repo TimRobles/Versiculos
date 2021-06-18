@@ -703,57 +703,41 @@
   <tabstop>btnColorFuente</tabstop>
   <tabstop>btnColorFondo</tabstop>
   <tabstop>sbFuente</tabstop>
-  <tabstop>btnEnviar</tabstop>
-  <tabstop>btnLimpiar</tabstop>
-  <tabstop>btnOcultarMostrar</tabstop>
-  <tabstop>hsTransparencia</tabstop>
-  <tabstop>sbTransparenciaMax</tabstop>
-  <tabstop>hsTransparenciaTexto</tabstop>
-  <tabstop>tePrev</tabstop>
-  <tabstop>tePrevMenos1</tabstop>
-  <tabstop>tePrevMas1</tabstop>
-  <tabstop>tePrevMenos2</tabstop>
-  <tabstop>tePrevMas2</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>deFecha</tabstop>
   <tabstop>cbHistorial</tabstop>
   <tabstop>cbBiblia</tabstop>
+  <tabstop>btnGuardarCondV</tabstop>
+  <tabstop>btnCargarCondV</tabstop>
   <tabstop>lePasaje</tabstop>
   <tabstop>cbLibro</tabstop>
   <tabstop>cbCapitulo</tabstop>
   <tabstop>cbVersiculo</tabstop>
-  <tabstop>btnOcultarMostrar</tabstop>
-  <tabstop>btnLimpiar</tabstop>
-  <tabstop>btnEnviar</tabstop>
   <tabstop>btnAnteriorV</tabstop>
-  <tabstop>hsTransparenciaTexto</tabstop>
-  <tabstop>tePrevMenos1</tabstop>
-  <tabstop>tePrevMas1</tabstop>
-  <tabstop>cbHistorial</tabstop>
-  <tabstop>deFecha</tabstop>
-  <tabstop>lePasaje</tabstop>
-  <tabstop>cbCapitulo</tabstop>
-  <tabstop>cbVersiculo</tabstop>
-  <tabstop>cbLibro</tabstop>
-  <tabstop>tePrev</tabstop>
-  <tabstop>tePrevMenos2</tabstop>
-  <tabstop>tePrevMas2</tabstop>
-  <tabstop>sbMargen</tabstop>
-  <tabstop>btnColorFondo</tabstop>
-  <tabstop>sbAltura</tabstop>
-  <tabstop>btnColorFuente</tabstop>
-  <tabstop>cbBiblia</tabstop>
-  <tabstop>sbFuente</tabstop>
-  <tabstop>sbAncho</tabstop>
   <tabstop>btnSiguienteV</tabstop>
-  <tabstop>sbTransparenciaMax</tabstop>
-  <tabstop>hsTransparencia</tabstop>
   <tabstop>leUrlCancion</tabstop>
   <tabstop>btnBuscarCancion</tabstop>
+  <tabstop>btnCargarTodas</tabstop>
+  <tabstop>btnActualizar</tabstop>
+  <tabstop>btnGuardarCondC</tabstop>
+  <tabstop>btnCargarCondC</tabstop>
+  <tabstop>btnAnteriorC</tabstop>
+  <tabstop>btnSiguienteC</tabstop>
   <tabstop>twCancionesRegistradas</tabstop>
   <tabstop>twCancionesHoy</tabstop>
-  <tabstop>leCancionSeleccionada</tabstop>
   <tabstop>twLetras</tabstop>
+  <tabstop>leCancionSeleccionada</tabstop>
+  <tabstop>btnEnviar</tabstop>
+  <tabstop>btnLimpiar</tabstop>
+  <tabstop>btnOcultarMostrar</tabstop>
+  <tabstop>hsTransparencia</tabstop>
+  <tabstop>sbTransparenciaMax</tabstop>
+  <tabstop>hsTransparenciaTexto</tabstop>
+  <tabstop>tePrev</tabstop>
+  <tabstop>tePrevMenos1</tabstop>
+  <tabstop>tePrevMas1</tabstop>
+  <tabstop>tePrevMenos2</tabstop>
+  <tabstop>tePrevMas2</tabstop>
  </tabstops>
  <resources/>
  <connections>

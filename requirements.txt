@@ -1,3 +1,4 @@
-pip3 install pyqt5
-pip3 install requests
-pip3 install bs4
+pyqt5
+requests
+bs4
+lxml
