@@ -19,6 +19,7 @@ class Principal(QMainWindow):
         self.cargarHistorial()
         self.cargarDatos()
         self.cargarLibros()
+        self.cargarFuentes()
 
         self.mostrar=Mostrar()
         self.mostrar.show()
@@ -44,7 +45,8 @@ class Principal(QMainWindow):
         self.sbAltura.valueChanged.connect(self.guardarAltura)
         self.sbAncho.valueChanged.connect(self.guardarAncho)
         self.sbMargen.valueChanged.connect(self.guardarMargen)
-        self.sbFuente.valueChanged.connect(self.guardarFuente)
+        self.cbFuente.currentIndexChanged.connect(self.guardarFuente)
+        self.sbFuente.valueChanged.connect(self.guardarFuenteTamano)
 
         self.deFecha.dateChanged.connect(self.cargarHistorial)
         self.cbHistorial.currentIndexChanged.connect(self.consultarHistorial)
@@ -76,6 +78,10 @@ class Principal(QMainWindow):
         self.twLetras.itemDoubleClicked.connect(self.elegirLetra)
         self.btnSiguienteC.clicked.connect(self.siguienteParrafo)
         self.btnAnteriorC.clicked.connect(self.anteriorParrafo)
+
+    def cargarFuentes(self):
+        for fuente in QFontDatabase().families(QFontDatabase.Latin):
+            self.cbFuente.addItem(fuente)
 
     def datosMostrar(self):
         self.data=leerData()
@@ -138,6 +144,11 @@ class Principal(QMainWindow):
         else:
             self.sbFuente.setValue(12)
             modificarData("sbFuente", 12)
+        if "cbFuente" in self.data:
+            buscarIndex(self.cbFuente, self.data["cbFuente"])
+        else:
+            self.cbFuente.setCurrentIndex(-1)
+            modificarData("cbFuente", "")
         if "cbBiblia" in self.data:
             self.cbBiblia.clear()
             for dato in self.data["cbBiblia"]:
@@ -318,6 +329,8 @@ class Principal(QMainWindow):
         self.animacionTextoAparecer.setEndValue(self.sbTransparenciaMax.value())
 
         self.anim_group.start()
+        if self.cbVersiculo.currentIndex()>0:
+            agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
 
     def limpiarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
@@ -398,14 +411,12 @@ class Principal(QMainWindow):
         if self.cbLibro.currentText() in self.tePrevMas1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()+1)
             self.enviarPrevisualizacion()
-            agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
             self.cargarHistorial()
 
     def anteriorVersiculo(self):
         if self.cbLibro.currentText() in self.tePrevMenos1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()-1)
             self.enviarPrevisualizacion()
-            agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
             self.cargarHistorial()
 
     def agregarBotonEliminar(self, tw, columna):
@@ -533,7 +544,6 @@ class Principal(QMainWindow):
         modificarData("sbMargen", self.data["sbMargenV"])
         modificarData("sbFuente", self.data["sbFuenteV"])
         self.cargarDatos()
-        self.enviarPrevisualizacion()
 
     def guardarCondicionesC(self):
         modificarData("sbAlturaC", self.sbAltura.value())
@@ -548,7 +558,6 @@ class Principal(QMainWindow):
         modificarData("sbMargen", self.data["sbMargenC"])
         modificarData("sbFuente", self.data["sbFuenteC"])
         self.cargarDatos()
-        self.enviarPrevisualizacion()
 
     def siguienteParrafo(self):
         if self.lblItemIndex.text()=="-1": return

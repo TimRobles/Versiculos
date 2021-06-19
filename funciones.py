@@ -39,8 +39,8 @@ def insertarFila(tw, Fila):
     for i in range(tw.columnCount()):
         tw.resizeColumnToContents(i)
 
-    if tw.columnCount()>1:
-        tw.setColumnWidth(tw.columnCount()-1, 0)
+    # if tw.columnCount()>1:
+    #     tw.setColumnWidth(tw.columnCount()-1, 0)
 
 def QDateASQL(QFecha):
     return "%s-%s-%s" % (str(QFecha.date().year()), "0"*(2-len(str(QFecha.date().month()))) + str(QFecha.date().month()), "0"*(2-len(str(QFecha.date().day()))) + str(QFecha.date().day()))
