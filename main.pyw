@@ -351,8 +351,8 @@ class Principal(QMainWindow):
     def enviarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
-        self.animacionTextoDesaparecer.setDuration(5*(self.hsTransparenciaTexto.value()))
-        self.animacionTextoAparecer.setDuration(5*(self.sbTransparenciaMax.value()))
+        self.animacionTextoDesaparecer.setDuration(2*(self.hsTransparenciaTexto.value()))
+        self.animacionTextoAparecer.setDuration(2*(self.sbTransparenciaMax.value()))
 
         self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
         self.animacionTextoDesaparecer.setEndValue(0)
@@ -369,7 +369,7 @@ class Principal(QMainWindow):
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
         if self.hsTransparenciaTexto.value()>0:
-            self.animacionTextoDesaparecer.setDuration(5*self.hsTransparenciaTexto.value())
+            self.animacionTextoDesaparecer.setDuration(2*self.hsTransparenciaTexto.value())
             self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
             self.animacionTextoDesaparecer.setEndValue(0)
             self.animacionTextoDesaparecer.start()
@@ -433,13 +433,13 @@ class Principal(QMainWindow):
 
     def ocultarMostrar(self):
         if self.btnOcultarMostrar.text()=="Ocultar":
-            self.animacion.setDuration(5*self.hsTransparencia.value())
+            self.animacion.setDuration(2*self.hsTransparencia.value())
             self.animacion.setStartValue(self.hsTransparencia.value())
             self.animacion.setEndValue(0)
             self.animacion.start()
             self.btnOcultarMostrar.setText("Mostrar")
         else:
-            self.animacion.setDuration(5*(self.sbTransparenciaMax.value()-self.hsTransparencia.value()))
+            self.animacion.setDuration(2*(self.sbTransparenciaMax.value()-self.hsTransparencia.value()))
             self.animacion.setStartValue(self.hsTransparencia.value())
             self.animacion.setEndValue(self.sbTransparenciaMax.value())
             self.animacion.start()
