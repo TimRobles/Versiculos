@@ -587,6 +587,7 @@ class Principal(QMainWindow):
         modificarData("sbFuenteC", self.sbFuente.value())
         modificarData("cbFuenteC", self.cbFuente.currentText())
 
+
     def cargarCondicionesC(self):
         self.data=leerData()
         modificarData("sbAltura", self.data["sbAlturaC"])
