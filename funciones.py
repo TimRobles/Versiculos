@@ -1,4 +1,4 @@
-import requests, sys, os, json, subprocess
+import requests, sys, os, json, subprocess, re, git
 from datetime import date
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, uic
@@ -14,6 +14,31 @@ def abrirPrograma(programa):
         subprocess.Popen("python %s" % (programa))
     else:
         subprocess.call(['gnome-terminal', '--', 'python3' , programa])
+
+def buscarTabla(tw, texto, columnas):
+    try:
+        rango = range(tw.topLevelItemCount())
+        palabras=re.sub(' +', ' ', texto).split(" ")
+        patrones=[]
+        for palabra in palabras:
+            patrones.append(re.compile(palabra.upper()))
+        if texto=="":
+            for i in rango:
+                tw.topLevelItem(i).setHidden(False)
+        else:
+            for i in rango:
+                busqueda=True
+                for j in columnas:
+                    subBusqueda=False
+                    for patron in patrones:
+                        subBusqueda=subBusqueda or (patron.search(tw.topLevelItem(i).text(j).upper()) is None)
+                    busqueda=busqueda and subBusqueda
+                if busqueda:
+                    tw.topLevelItem(i).setHidden(True)
+                else:
+                    tw.topLevelItem(i).setHidden(False)
+    except Exception as e:
+        print(e)
 
 def buscarLetra(url):
     if url=="": return False

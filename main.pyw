@@ -40,6 +40,8 @@ class Principal(QMainWindow):
         self.btnColorFuente.clicked.connect(self.seleccionarColorFuente)
         self.btnColorFondo.clicked.connect(self.seleccionarColorFondo)
 
+        self.btnUpdate.clicked.connect(self.actualizarSistema)
+
         self.lePasaje.textChanged.connect(self.separar)
 
         self.sbAltura.valueChanged.connect(self.guardarAltura)
@@ -73,6 +75,7 @@ class Principal(QMainWindow):
         self.btnBuscarCancion.clicked.connect(self.buscarCancion)
         self.btnCargarTodas.clicked.connect(self.cargarTodas)
         self.btnActualizar.clicked.connect(self.cargarCanciones)
+        self.leBuscar.textChanged.connect(self.buscarCancionRegistrada)
         self.twCancionesRegistradas.itemDoubleClicked.connect(self.agregarCancion)
         self.twCancionesHoy.itemDoubleClicked.connect(self.elegirCancion)
         self.twLetras.itemDoubleClicked.connect(self.elegirLetra)
@@ -111,6 +114,18 @@ class Principal(QMainWindow):
             self.datosMostrar()
         except Exception as e:
             print(e)
+
+    def actualizarSistema(self):
+        try:
+            g = git.cmd.Git(rutaBase)
+            msg=g.pull()
+            print(msg)
+            if msg=="Already up to date.":
+                print("Actualización", "Ya está actualizado")
+            if "Updating" in msg:
+                print("Actualización", "Sistema actualizado")
+        except Exception as e:
+            print("Error", msg + "\n" + e)
 
     def cargarVersion(self):
         self.data=leerData()
@@ -481,6 +496,9 @@ class Principal(QMainWindow):
 
     def cargarTodas(self):
         abrirPrograma("actualizar_canciones.py")
+
+    def buscarCancionRegistrada(self):
+        buscarTabla(self.twCancionesRegistradas, self.leBuscar.text(), [0])
 
     def agregarCancion(self):
         self.canciones=leerCanciones()
