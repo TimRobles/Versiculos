@@ -16,15 +16,15 @@ class Principal(QMainWindow):
 
         self.deFecha.setDate(date.today())
         self.showMaximized()
+        self.cargarFuentes()
         self.cargarHistorial()
         self.cargarDatos()
         self.cargarLibros()
-        self.cargarFuentes()
 
         self.mostrar=Mostrar()
         self.mostrar.show()
         self.datosMostrar()
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(self.data["sbTransparenciaMax"]*255/100)]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
+        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%s); color: rgba(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(int(self.data["sbTransparenciaMax"]*255/100))]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
         self.animacionTextoDesaparecer=QPropertyAnimation(self.hsTransparenciaTexto, b'value')
@@ -145,6 +145,7 @@ class Principal(QMainWindow):
             self.sbFuente.setValue(12)
             modificarData("sbFuente", 12)
         if "cbFuente" in self.data:
+            print("buscar cbFuente", self.data["cbFuente"])
             buscarIndex(self.cbFuente, self.data["cbFuente"])
         else:
             self.cbFuente.setCurrentIndex(-1)
@@ -228,15 +229,15 @@ class Principal(QMainWindow):
                 prevMas1=""
                 prevMas2=""
 
-                previsual='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.sbFuente.value(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
+                previsual='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
 
-                if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
+                if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
 
-                if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
+                if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
 
-                if verMas1 in range(self.cbVersiculo.count()-1): prevMas1='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1])
+                if verMas1 in range(self.cbVersiculo.count()-1): prevMas1='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1])
 
-                if verMas2 in range(self.cbVersiculo.count()-1): prevMas2='<p style="text-align:center; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2])
+                if verMas2 in range(self.cbVersiculo.count()-1): prevMas2='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2])
 
                 self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
 
@@ -257,8 +258,14 @@ class Principal(QMainWindow):
         self.datosMostrar()
 
     def guardarFuente(self):
+        modificarData("cbFuente", self.cbFuente.currentText())
+        if self.cbVersiculo.currentIndex()>0:
+            self.leerVersiculo()
+
+    def guardarFuenteTamano(self):
         modificarData("sbFuente", self.sbFuente.value())
-        self.leerVersiculo()
+        if self.cbVersiculo.currentIndex()>0:
+            self.leerVersiculo()
 
     def separar(self):
         texto=self.lePasaje.text()
@@ -331,6 +338,7 @@ class Principal(QMainWindow):
         self.anim_group.start()
         if self.cbVersiculo.currentIndex()>0:
             agregarHistorial(QDateASQL(self.deFecha), self.tePrev.toPlainText())
+            self.cargarHistorial()
 
     def limpiarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
@@ -362,7 +370,7 @@ class Principal(QMainWindow):
             self.mostrar.textEdit.clear()
             if self.mostrarVersiculo:
                 self.mostrar.textEdit.insertHtml(self.tePrev.toHtml())
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(self.hsTransparencia.value()*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
+        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%s); color: rgba(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(int(self.hsTransparencia.value()*255/100))]), ",".join(self.data["colorFuente"][0:-1] + [str(int(value*255/100))])))
 
     def escalarTransparenciaTotal(self, value):
         if value<self.sbTransparenciaMax.value():
@@ -383,9 +391,9 @@ class Principal(QMainWindow):
             self.btnSiguienteV.setEnabled(True)
 
         if self.hsTransparenciaTexto.value()==0:
-            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
+            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%s); color: rgba(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(int(value*255/100))]), ",".join(self.data["colorFuente"][0:-1] + ["0"])))
         else:
-            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgb(%s); color: rgb(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(value*255/100)]), ",".join(self.data["colorFuente"][0:-1] + [str(value*255/100)])))
+            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%s); color: rgba(%s)" % (",".join(self.data["colorFondo"][0:-1] + [str(int(value*255/100))]), ",".join(self.data["colorFuente"][0:-1] + [str(int(value*255/100))])))
         modificarData("colorFuente", self.data["colorFuente"][0:-1]+[str(value*255/100)])
         modificarData("colorFondo", self.data["colorFondo"][0:-1]+[str(value*255/100)])
         if value==0:
@@ -411,13 +419,11 @@ class Principal(QMainWindow):
         if self.cbLibro.currentText() in self.tePrevMas1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()+1)
             self.enviarPrevisualizacion()
-            self.cargarHistorial()
 
     def anteriorVersiculo(self):
         if self.cbLibro.currentText() in self.tePrevMenos1.toHtml():
             self.cbVersiculo.setCurrentIndex(self.cbVersiculo.currentIndex()-1)
             self.enviarPrevisualizacion()
-            self.cargarHistorial()
 
     def agregarBotonEliminar(self, tw, columna):
         for i in range(tw.topLevelItemCount()):
@@ -519,16 +525,17 @@ class Principal(QMainWindow):
         prevMas1=""
         prevMas2=""
 
-        previsual='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value(), item.text(0).replace("\n",'<br>'))
+        previsual='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value(), item.text(0).replace("\n",'<br>'))
 
         if indice>0:
-            prevMenos1='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-1).text(0).replace("\n",'<br>'))
+            prevMenos1='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-1).text(0).replace("\n",'<br>'))
         if indice>1:
-            prevMenos2='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-2).text(0).replace("\n",'<br>'))
+            prevMenos2='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-2).text(0).replace("\n",'<br>'))
         if indice<self.twLetras.topLevelItemCount()-2:
-            prevMas1='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+1).text(0).replace("\n",'<br>'))
+            prevMas1='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+1).text(0).replace("\n",'<br>'))
         if indice<self.twLetras.topLevelItemCount()-3:
-            prevMas2='<p style="text-align:center; font-size:%ipx;">%s</p>' % (self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+2).text(0).replace("\n",'<br>'))
+            prevMas2='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+2).text(0).replace("\n",'<br>'))
+        self.cbLibro.setCurrentIndex(0)
         self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
 
     def guardarCondicionesV(self):
@@ -536,6 +543,7 @@ class Principal(QMainWindow):
         modificarData("sbAnchoV", self.sbAncho.value())
         modificarData("sbMargenV", self.sbMargen.value())
         modificarData("sbFuenteV", self.sbFuente.value())
+        modificarData("cbFuenteV", self.cbFuente.currentText())
 
     def cargarCondicionesV(self):
         self.data=leerData()
@@ -543,6 +551,7 @@ class Principal(QMainWindow):
         modificarData("sbAncho", self.data["sbAnchoV"])
         modificarData("sbMargen", self.data["sbMargenV"])
         modificarData("sbFuente", self.data["sbFuenteV"])
+        modificarData("cbFuente", self.data["cbFuenteV"])
         self.cargarDatos()
 
     def guardarCondicionesC(self):
@@ -550,6 +559,7 @@ class Principal(QMainWindow):
         modificarData("sbAnchoC", self.sbAncho.value())
         modificarData("sbMargenC", self.sbMargen.value())
         modificarData("sbFuenteC", self.sbFuente.value())
+        modificarData("cbFuenteC", self.cbFuente.currentText())
 
     def cargarCondicionesC(self):
         self.data=leerData()
@@ -557,6 +567,7 @@ class Principal(QMainWindow):
         modificarData("sbAncho", self.data["sbAnchoC"])
         modificarData("sbMargen", self.data["sbMargenC"])
         modificarData("sbFuente", self.data["sbFuenteC"])
+        modificarData("cbFuente", self.data["cbFuenteC"])
         self.cargarDatos()
 
     def siguienteParrafo(self):
