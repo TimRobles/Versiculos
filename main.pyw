@@ -10,6 +10,7 @@ class Mostrar(QMainWindow):
         self.showMaximized()
 
 class Principal(QMainWindow):
+    EXIT_CODE_REBOOT = -123
     def __init__(self):
         QMainWindow.__init__(self)
         uic.loadUi("main.ui",self)
@@ -124,6 +125,8 @@ class Principal(QMainWindow):
                 print("Actualización", "Ya está actualizado")
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
+                print("Reiniciando...")
+                qApp.exit(Principal.EXIT_CODE_REBOOT)
         except Exception as e:
             print("Error", msg + "\n" + e)
 
@@ -605,7 +608,11 @@ class Principal(QMainWindow):
             self.elegirLetra(self.twLetras.topLevelItem(int(self.lblItemIndex.text())-1))
             self.enviarPrevisualizacion()
 
-app=QApplication(sys.argv) #Instancia para iniciar una aplicación
-_main=Principal() #Crear un objeto de la clase / Como el Load en VBA
-_main.show() #Mostrar la ventana
-app.exec_() #Ejecutar applicación
+if __name__=="__main__":
+    currentExitCode = Principal.EXIT_CODE_REBOOT
+    while currentExitCode == Principal.EXIT_CODE_REBOOT:
+        app=QApplication(sys.argv) #Instancia para iniciar una aplicación
+        _main=Principal() #Crear un objeto de la clase / Como el Load en VBA
+        _main.show() #Mostrar la ventana
+        currentExitCode = app.exec_() #Ejecutar applicación
+        app=None
