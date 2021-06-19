@@ -166,7 +166,6 @@ class Principal(QMainWindow):
             self.sbFuente.setValue(12)
             modificarData("sbFuente", 12)
         if "cbFuente" in self.data:
-            print("buscar cbFuente", self.data["cbFuente"])
             buscarIndex(self.cbFuente, self.data["cbFuente"])
         else:
             self.cbFuente.setCurrentIndex(-1)
