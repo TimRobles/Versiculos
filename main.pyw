@@ -117,7 +117,7 @@ class Principal(QMainWindow):
 
     def actualizarSistema(self):
         try:
-            g = git.cmd.Git(rutaBase)
+            g = git.cmd.Git(os.getcwd())
             msg=g.pull()
             print(msg)
             if msg=="Already up to date.":
