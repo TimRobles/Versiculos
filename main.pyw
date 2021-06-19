@@ -91,20 +91,26 @@ class Principal(QMainWindow):
         self.mostrar.widget.setMinimumSize(self.data["sbAncho"], self.data["sbMargen"])
 
     def seleccionarColorFuente(self):
-        colorInicial=QColor()
-        dato=self.data["colorFuente"]
-        colorInicial.setRgb(int(dato[0]), int(dato[1]), int(dato[2]), int(dato[3]))
-        color = QColorDialog.getColor(colorInicial, self, "Color de Fuente")
-        modificarData("colorFuente", [str(color.red()), str(color.green()), str(color.blue()), str(self.hsTransparencia.value()*255/100)])
-        self.datosMostrar()
+        try:
+            colorInicial=QColor()
+            dato=self.data["colorFuente"]
+            colorInicial.setRgb(int(dato[0]), int(dato[1]), int(dato[2]), int(dato[3]))
+            color = QColorDialog.getColor(colorInicial, self, "Color de Fuente")
+            modificarData("colorFuente", [str(color.red()), str(color.green()), str(color.blue()), str(int(self.hsTransparencia.value()*255/100))])
+            self.datosMostrar()
+        except Exception as e:
+            print(e)
 
     def seleccionarColorFondo(self):
-        colorInicial=QColor()
-        dato=self.data["colorFondo"]
-        colorInicial.setRgb(int(dato[0]), int(dato[1]), int(dato[2]), int(dato[3]))
-        color = QColorDialog.getColor(colorInicial, self, "Color de Fondo")
-        modificarData("colorFondo", [str(color.red()), str(color.green()), str(color.blue()), str(self.hsTransparencia.value()*255/100)])
-        self.datosMostrar()
+        try:
+            colorInicial=QColor()
+            dato=self.data["colorFondo"]
+            colorInicial.setRgb(int(dato[0]), int(dato[1]), int(dato[2]), int(dato[3]))
+            color = QColorDialog.getColor(colorInicial, self, "Color de Fondo")
+            modificarData("colorFondo", [str(color.red()), str(color.green()), str(color.blue()), str(int(self.hsTransparencia.value()*255/100))])
+            self.datosMostrar()
+        except Exception as e:
+            print(e)
 
     def cargarVersion(self):
         self.data=leerData()
