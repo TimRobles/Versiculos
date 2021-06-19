@@ -351,8 +351,8 @@ class Principal(QMainWindow):
     def enviarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
-        self.animacionTextoDesaparecer.setDuration(2*(self.hsTransparenciaTexto.value()))
-        self.animacionTextoAparecer.setDuration(2*(self.sbTransparenciaMax.value()))
+        self.animacionTextoDesaparecer.setDuration(2*0.5*(self.hsTransparenciaTexto.value()))
+        self.animacionTextoAparecer.setDuration(2*0.5*(self.sbTransparenciaMax.value()))
 
         self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
         self.animacionTextoDesaparecer.setEndValue(0)
