@@ -30,15 +30,19 @@ class Principal(QMainWindow):
         self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
+        self.animacionAltura=QPropertyAnimation(self.hsAltura, b'value')
         self.animacionTextoDesaparecer=QPropertyAnimation(self.hsTransparenciaTexto, b'value')
         self.animacionTextoAparecer=QPropertyAnimation(self.hsTransparenciaTexto, b'value')
         self.anim_group = QSequentialAnimationGroup()
         self.anim_group.addAnimation(self.animacionTextoDesaparecer)
         self.anim_group.addAnimation(self.animacionTextoAparecer)
 
+        self.hsAltura.valueChanged.connect(self.cambiarAltura)
         self.hsTransparencia.valueChanged.connect(self.escalarTransparenciaTotal)
         self.hsTransparenciaTexto.valueChanged.connect(self.escalarTransparenciaTexto)
         self.sbTransparenciaMax.valueChanged.connect(self.guardarTransparencia)
+
+        self.btnMostrar.clicked.connect(self.mostrarTextEdits)
 
         self.btnColorFuente.clicked.connect(self.seleccionarColorFuente)
         self.btnColorFondo.clicked.connect(self.seleccionarColorFondo)
@@ -128,7 +132,8 @@ class Principal(QMainWindow):
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
                 print("Reiniciando...")
-                qApp.exit(Principal.EXIT_CODE_REBOOT)
+                # qApp.exit(Principal.EXIT_CODE_REBOOT)
+                self.close()
         except Exception as e:
             print("Error", msg + "\n" + e)
 
@@ -254,21 +259,47 @@ class Principal(QMainWindow):
                 prevMas1=""
                 prevMas2=""
 
-                previsual='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
+                previsual='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
 
-                if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
+                if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
 
-                if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
+                if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
 
-                if verMas1 in range(self.cbVersiculo.count()-1): prevMas1='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1])
+                if verMas1 in range(self.cbVersiculo.count()-1): prevMas1='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMas1+1, libro["capitulos"][capitulo][verMas1])
 
-                if verMas2 in range(self.cbVersiculo.count()-1): prevMas2='<p style="text-align:center; font-family:%s; font-size:%ipx;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2])
+                if verMas2 in range(self.cbVersiculo.count()-1): prevMas2='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMas2+1, libro["capitulos"][capitulo][verMas2])
 
                 self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
 
     def guardarTransparencia(self):
         modificarData("sbTransparenciaMax", self.sbTransparenciaMax.value())
+        self.hsTransparencia.setValue(self.sbTransparenciaMax.value())
         self.datosMostrar()
+
+    def mostrarTextEdits(self):
+        if self.btnMostrar.text()=="Mostrar menos":
+            self.animacionAltura.setDuration(1000)
+            self.animacionAltura.setStartValue(100)
+            self.animacionAltura.setEndValue(0)
+            self.animacionAltura.start()
+            self.btnMostrar.setText("Mostrar más")
+        else:
+            self.animacionAltura.setDuration(1000)
+            self.animacionAltura.setStartValue(0)
+            self.animacionAltura.setEndValue(100)
+            self.animacionAltura.start()
+            self.btnMostrar.setText("Mostrar menos")
+
+    def cambiarAltura(self, value):
+        altura=int(self.hsAltura.value())
+        self.lblPrevMenos1.setMaximumSize(self.lblPrevMenos1.maximumWidth(), altura)
+        self.tePrevMenos1.setMaximumSize(self.tePrevMenos1.maximumWidth(), altura)
+        self.lblPrevMenos2.setMaximumSize(self.lblPrevMenos2.maximumWidth(), altura)
+        self.tePrevMenos2.setMaximumSize(self.tePrevMenos2.maximumWidth(), altura)
+        self.lblPrevMas1.setMaximumSize(self.lblPrevMas1.maximumWidth(), altura)
+        self.tePrevMas1.setMaximumSize(self.tePrevMas1.maximumWidth(), altura)
+        self.lblPrevMas2.setMaximumSize(self.lblPrevMas2.maximumWidth(), altura)
+        self.tePrevMas2.setMaximumSize(self.tePrevMas2.maximumWidth(), altura)
 
     def guardarAltura(self):
         modificarData("sbAltura", self.sbAltura.value())
@@ -349,10 +380,12 @@ class Principal(QMainWindow):
         self.cambiar=True
 
     def enviarPrevisualizacion(self):
+        print("Valor inicial:", self.hsTransparenciaTexto.value())
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
-        self.animacionTextoDesaparecer.setDuration(2.5*0.5*(self.hsTransparenciaTexto.value()))
-        self.animacionTextoAparecer.setDuration(2.5*0.5*(self.sbTransparenciaMax.value()))
+        self.limpiarVersiculo=False
+        self.animacionTextoDesaparecer.setDuration(int(self.sbTiempo.value()*0.5))
+        self.animacionTextoAparecer.setDuration(int(self.sbTiempo.value()*0.5))
 
         self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
         self.animacionTextoDesaparecer.setEndValue(0)
@@ -367,14 +400,15 @@ class Principal(QMainWindow):
 
     def limpiarPrevisualizacion(self):
         if self.hsTransparencia.value()==0: return
-        self.mostrarVersiculo=True
+        self.limpiarVersiculo=True
         if self.hsTransparenciaTexto.value()>0:
-            self.animacionTextoDesaparecer.setDuration(2.5*self.hsTransparenciaTexto.value())
+            self.animacionTextoDesaparecer.setDuration(int(self.sbTiempo.value()))
             self.animacionTextoDesaparecer.setStartValue(self.hsTransparenciaTexto.value())
             self.animacionTextoDesaparecer.setEndValue(0)
             self.animacionTextoDesaparecer.start()
 
     def escalarTransparenciaTexto(self, value):
+        print(value)
         if value<self.sbTransparenciaMax.value():
             self.btnEnviar.setEnabled(False)
             self.btnLimpiar.setEnabled(False)
@@ -383,7 +417,7 @@ class Principal(QMainWindow):
             self.btnSiguienteC.setEnabled(False)
             self.btnAnteriorV.setEnabled(False)
             self.btnSiguienteV.setEnabled(False)
-        if value==self.sbTransparenciaMax.value() or value==0:
+        else:
             self.btnEnviar.setEnabled(True)
             self.btnLimpiar.setEnabled(True)
             self.btnOcultarMostrar.setEnabled(True)
@@ -391,10 +425,21 @@ class Principal(QMainWindow):
             self.btnSiguienteC.setEnabled(True)
             self.btnAnteriorV.setEnabled(True)
             self.btnSiguienteV.setEnabled(True)
-        if value in [0,1]:
+        if value==0 and self.limpiarVersiculo:
+            self.limpiarVersiculo=False
             self.mostrar.textEdit.clear()
-            if self.mostrarVersiculo:
-                self.mostrar.textEdit.insertHtml(self.tePrev.toHtml())
+            self.btnEnviar.setEnabled(True)
+            self.btnLimpiar.setEnabled(True)
+            self.btnOcultarMostrar.setEnabled(True)
+            self.btnAnteriorC.setEnabled(True)
+            self.btnSiguienteC.setEnabled(True)
+            self.btnAnteriorV.setEnabled(True)
+            self.btnSiguienteV.setEnabled(True)
+        if value<=10 and self.mostrarVersiculo:
+            print("mostrarVersiculo")
+            self.mostrar.textEdit.clear()
+            self.mostrar.textEdit.insertHtml(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuente.value()))
+            self.mostrarVersiculo=False
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
         self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.hsTransparencia.value()*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
@@ -416,6 +461,7 @@ class Principal(QMainWindow):
             self.btnSiguienteC.setEnabled(True)
             self.btnAnteriorV.setEnabled(True)
             self.btnSiguienteV.setEnabled(True)
+            self.mostrar.textEdit.clear()
 
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
@@ -433,13 +479,13 @@ class Principal(QMainWindow):
 
     def ocultarMostrar(self):
         if self.btnOcultarMostrar.text()=="Ocultar":
-            self.animacion.setDuration(2.5*self.hsTransparencia.value())
+            self.animacion.setDuration(int(self.sbTiempo.value()))
             self.animacion.setStartValue(self.hsTransparencia.value())
             self.animacion.setEndValue(0)
             self.animacion.start()
             self.btnOcultarMostrar.setText("Mostrar")
         else:
-            self.animacion.setDuration(2.5*(self.sbTransparenciaMax.value()-self.hsTransparencia.value()))
+            self.animacion.setDuration(int(self.sbTiempo.value()))
             self.animacion.setStartValue(self.hsTransparencia.value())
             self.animacion.setEndValue(self.sbTransparenciaMax.value())
             self.animacion.start()

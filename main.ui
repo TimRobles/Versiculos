@@ -16,7 +16,13 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_9">
     <item row="5" column="4">
-     <widget class="QLabel" name="label_11">
+     <widget class="QLabel" name="lblPrevMas2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="text">
        <string>Previsualización +2:</string>
       </property>
@@ -144,8 +150,34 @@
     </item>
     <item row="2" column="0" colspan="6">
      <layout class="QGridLayout" name="gridLayout_7">
+      <item row="0" column="11">
+       <widget class="QSlider" name="hsTransparenciaTexto">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>Tiempo (ms):</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="4">
        <widget class="QSlider" name="hsTransparencia">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="maximum">
          <number>100</number>
         </property>
@@ -157,13 +189,6 @@
         </property>
         <property name="tickPosition">
          <enum>QSlider::TicksBothSides</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string>Transparencia Max:</string>
         </property>
        </widget>
       </item>
@@ -181,7 +206,7 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="7">
+      <item row="0" column="9">
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -194,10 +219,23 @@
         </property>
        </spacer>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="btnLimpiar">
+      <item row="0" column="8">
+       <widget class="QSpinBox" name="sbTiempo">
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+        <property name="singleStep">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>1000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="label_15">
         <property name="text">
-         <string>Limpiar</string>
+         <string>Transparencia Max:</string>
         </property>
        </widget>
       </item>
@@ -208,22 +246,33 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="8">
-       <widget class="QSlider" name="hsTransparenciaTexto">
-        <property name="maximumSize">
-         <size>
-          <width>0</width>
-          <height>16777215</height>
-         </size>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="btnLimpiar">
+        <property name="text">
+         <string>Limpiar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QPushButton" name="btnMostrar">
+        <property name="text">
+         <string>Mostrar menos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="12">
+       <widget class="QSlider" name="hsAltura">
+        <property name="enabled">
+         <bool>false</bool>
         </property>
         <property name="maximum">
          <number>100</number>
         </property>
+        <property name="value">
+         <number>100</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::NoTicks</enum>
         </property>
        </widget>
       </item>
@@ -277,7 +326,13 @@
      </widget>
     </item>
     <item row="4" column="0" colspan="3">
-     <widget class="QLabel" name="label_12">
+     <widget class="QLabel" name="lblPrevMenos1">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="text">
        <string>Previsualización -1:</string>
       </property>
@@ -286,7 +341,7 @@
     <item row="1" column="0" colspan="6">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_1">
        <attribute name="title">
@@ -692,14 +747,26 @@
      </widget>
     </item>
     <item row="4" column="4">
-     <widget class="QLabel" name="label_10">
+     <widget class="QLabel" name="lblPrevMas1">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="text">
        <string>Previsualización +1:</string>
       </property>
      </widget>
     </item>
     <item row="5" column="0" colspan="3">
-     <widget class="QLabel" name="label_13">
+     <widget class="QLabel" name="lblPrevMenos2">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
       <property name="text">
        <string>Previsualización -2:</string>
       </property>
