@@ -141,8 +141,9 @@ class Principal(QMainWindow):
         self.data=leerData()
         if self.cbBiblia.currentText()=="": return
         version=self.data["cbBiblia"][self.cbBiblia.currentText()]
-        with open(version) as file:
+        with open("Versiones/" + version) as file:
             self.biblia=json.load(file)
+        self.cargarLibros()
 
     def cargarDatos(self):
         self.data=leerData()
@@ -185,7 +186,7 @@ class Principal(QMainWindow):
             for dato in self.data["cbBiblia"]:
                 self.cbBiblia.addItem(dato)
         else:
-            versiones={"RVR60": "RVR60.json"}
+            versiones={"RVR60": "RVR60.json", "NVI": "NVI.json"}
             modificarData("cbBiblia", versiones)
             self.cbBiblia.clear()
             for dato in versiones:
