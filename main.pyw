@@ -132,6 +132,7 @@ class Principal(QMainWindow):
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
                 # qApp.exit(Principal.EXIT_CODE_REBOOT)
+                self.mostrar.close()
                 self.close()
         except Exception as e:
             print("Error", msg + "\n" + e)
