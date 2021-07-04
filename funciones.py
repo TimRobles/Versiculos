@@ -15,6 +15,12 @@ def abrirPrograma(programa):
     else:
         subprocess.call(['gnome-terminal', '--', 'python3' , programa])
 
+def buscarItem(tw):
+    for i in range(tw.topLevelItemCount()):
+        if tw.topLevelItem(i)==tw.currentItem():
+            return i
+    return -1
+
 def buscarTabla(tw, texto, columnas):
     try:
         rango = range(tw.topLevelItemCount())

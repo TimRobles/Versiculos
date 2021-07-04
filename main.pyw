@@ -27,7 +27,7 @@ class Principal(QMainWindow):
         self.datosMostrar()
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
+        self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
         self.animacionAltura=QPropertyAnimation(self.hsAltura, b'value')
@@ -95,8 +95,8 @@ class Principal(QMainWindow):
 
     def datosMostrar(self):
         self.data=leerData()
-        self.mostrar.textEdit.setMaximumSize(self.data["sbAncho"], self.data["sbAltura"])
-        self.mostrar.textEdit.setMinimumSize(self.data["sbAncho"], self.data["sbAltura"])
+        self.mostrar.label.setMaximumSize(self.data["sbAncho"], self.data["sbAltura"])
+        self.mostrar.label.setMinimumSize(self.data["sbAncho"], self.data["sbAltura"])
         self.mostrar.widget.setMaximumSize(self.data["sbAncho"], self.data["sbMargen"])
         self.mostrar.widget.setMinimumSize(self.data["sbAncho"], self.data["sbMargen"])
 
@@ -131,7 +131,6 @@ class Principal(QMainWindow):
                 print("Actualización", "Ya está actualizado")
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
-                print("Reiniciando...")
                 # qApp.exit(Principal.EXIT_CODE_REBOOT)
                 self.close()
         except Exception as e:
@@ -381,7 +380,6 @@ class Principal(QMainWindow):
         self.cambiar=True
 
     def enviarPrevisualizacion(self):
-        print("Valor inicial:", self.hsTransparenciaTexto.value())
         if self.hsTransparencia.value()==0: return
         self.mostrarVersiculo=True
         self.limpiarVersiculo=False
@@ -409,7 +407,6 @@ class Principal(QMainWindow):
             self.animacionTextoDesaparecer.start()
 
     def escalarTransparenciaTexto(self, value):
-        print(value)
         if value<self.sbTransparenciaMax.value():
             self.btnEnviar.setEnabled(False)
             self.btnLimpiar.setEnabled(False)
@@ -428,7 +425,7 @@ class Principal(QMainWindow):
             self.btnSiguienteV.setEnabled(True)
         if value==0 and self.limpiarVersiculo:
             self.limpiarVersiculo=False
-            self.mostrar.textEdit.clear()
+            self.mostrar.label.clear()
             self.btnEnviar.setEnabled(True)
             self.btnLimpiar.setEnabled(True)
             self.btnOcultarMostrar.setEnabled(True)
@@ -437,13 +434,12 @@ class Principal(QMainWindow):
             self.btnAnteriorV.setEnabled(True)
             self.btnSiguienteV.setEnabled(True)
         if value<=10 and self.mostrarVersiculo:
-            print("mostrarVersiculo")
-            self.mostrar.textEdit.clear()
-            self.mostrar.textEdit.insertHtml(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuente.value()))
+            self.mostrar.label.clear()
+            self.mostrar.label.setText(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuente.value()))
             self.mostrarVersiculo=False
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
-        self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.hsTransparencia.value()*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
+        self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.hsTransparencia.value()*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
 
     def escalarTransparenciaTotal(self, value):
         if value<self.sbTransparenciaMax.value():
@@ -462,14 +458,14 @@ class Principal(QMainWindow):
             self.btnSiguienteC.setEnabled(True)
             self.btnAnteriorV.setEnabled(True)
             self.btnSiguienteV.setEnabled(True)
-            self.mostrar.textEdit.clear()
+            self.mostrar.label.clear()
 
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
         if self.hsTransparenciaTexto.value()==0:
-            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
+            self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
         else:
-            self.mostrar.textEdit.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
+            self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
 
         modificarData("colorFuente", [colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)])
         modificarData("colorFondo", [colorFondo[0], colorFondo[1], colorFondo[2], int(value*255/100)])
@@ -591,32 +587,26 @@ class Principal(QMainWindow):
         print(buscarLetra(url))
 
     def elegirLetra(self, item):
-        indice=-1
-        for i in range(self.twLetras.topLevelItemCount()):
-            if item==self.twLetras.topLevelItem(i): indice=i
-        if indice==-1:
-            self.lblItemIndex.setText(str(indice))
-            return
-
-        self.lblItemIndex.setText(str(indice))
+        if item==None: return
         previsual=""
         prevMenos1=""
         prevMenos2=""
         prevMas1=""
         prevMas2=""
 
-        previsual='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value(), item.text(0).replace("\n",'<br>'))
+        previsual='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), item.text(0).replace("\n",'<br>'))
 
-        if indice>0:
-            prevMenos1='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-1).text(0).replace("\n",'<br>'))
-        if indice>1:
-            prevMenos2='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice-2).text(0).replace("\n",'<br>'))
-        if indice<self.twLetras.topLevelItemCount()-2:
-            prevMas1='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+1).text(0).replace("\n",'<br>'))
-        if indice<self.twLetras.topLevelItemCount()-3:
-            prevMas2='<p style="text-align:center; font-family:%s; font-size:%ipx;">%s</p>' % (self.cbFuente.currentText(), self.sbFuente.value()/2, self.twLetras.topLevelItem(indice+2).text(0).replace("\n",'<br>'))
+        if buscarItem(self.twLetras)>0:
+            prevMenos1='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), self.twLetras.topLevelItem(buscarItem(self.twLetras)-1).text(0).replace("\n",'<br>'))
+        if buscarItem(self.twLetras)>1:
+            prevMenos2='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), self.twLetras.topLevelItem(buscarItem(self.twLetras)-2).text(0).replace("\n",'<br>'))
+        if buscarItem(self.twLetras)<self.twLetras.topLevelItemCount()-2:
+            prevMas1='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), self.twLetras.topLevelItem(buscarItem(self.twLetras)+1).text(0).replace("\n",'<br>'))
+        if buscarItem(self.twLetras)<self.twLetras.topLevelItemCount()-3:
+            prevMas2='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), self.twLetras.topLevelItem(buscarItem(self.twLetras)+2).text(0).replace("\n",'<br>'))
         self.cbLibro.setCurrentIndex(0)
         self.cargarTextos(previsual, prevMenos1, prevMenos2, prevMas1, prevMas2)
+        self.enviarPrevisualizacion()
 
     def guardarCondicionesV(self):
         modificarData("sbAlturaV", self.sbAltura.value())
@@ -641,7 +631,6 @@ class Principal(QMainWindow):
         modificarData("sbFuenteC", self.sbFuente.value())
         modificarData("cbFuenteC", self.cbFuente.currentText())
 
-
     def cargarCondicionesC(self):
         self.data=leerData()
         modificarData("sbAltura", self.data["sbAlturaC"])
@@ -652,16 +641,20 @@ class Principal(QMainWindow):
         self.cargarDatos()
 
     def siguienteParrafo(self):
-        if self.lblItemIndex.text()=="-1": return
-        if int(self.lblItemIndex.text())<self.twLetras.topLevelItemCount()-2:
-            self.elegirLetra(self.twLetras.topLevelItem(int(self.lblItemIndex.text())+1))
-            self.enviarPrevisualizacion()
+        if self.twLetras.currentItem()==None:
+            indice=-1
+        else:
+            indice=buscarItem(self.twLetras)
+        self.twLetras.setCurrentItem(self.twLetras.topLevelItem(indice+1))
+        self.elegirLetra(self.twLetras.currentItem())
 
     def anteriorParrafo(self):
-        if self.lblItemIndex.text()=="-1": return
-        if int(self.lblItemIndex.text())>0:
-            self.elegirLetra(self.twLetras.topLevelItem(int(self.lblItemIndex.text())-1))
-            self.enviarPrevisualizacion()
+        if self.twLetras.currentItem()==None:
+            indice=self.twLetras.topLevelItemCount()
+        else:
+            indice=buscarItem(self.twLetras)
+        self.twLetras.setCurrentItem(self.twLetras.topLevelItem(indice-1))
+        self.elegirLetra(self.twLetras.currentItem())
 
 if __name__=="__main__":
     currentExitCode = Principal.EXIT_CODE_REBOOT

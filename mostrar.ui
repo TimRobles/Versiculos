@@ -18,18 +18,28 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <spacer name="spacer_2">
+    <item row="1" column="3">
+     <spacer name="horizontalSpacer">
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Horizontal</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>20</width>
-        <height>247</height>
+        <width>254</width>
+        <height>20</height>
        </size>
       </property>
      </spacer>
+    </item>
+    <item row="2" column="2">
+     <widget class="QWidget" name="widget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
      <spacer name="horizontalSpacer_2">
@@ -44,58 +54,26 @@
       </property>
      </spacer>
     </item>
-    <item row="1" column="1">
-     <widget class="QTextEdit" name="textEdit">
-      <property name="inputMethodHints">
-       <set>Qt::ImhNone</set>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="cursorWidth">
-       <number>0</number>
-      </property>
-      <property name="textInteractionFlags">
-       <set>Qt::NoTextInteraction</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <spacer name="horizontalSpacer">
+    <item row="0" column="2">
+     <spacer name="spacer_2">
       <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+       <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>254</width>
-        <height>20</height>
+        <width>20</width>
+        <height>247</height>
        </size>
       </property>
      </spacer>
     </item>
-    <item row="2" column="1">
-     <widget class="QWidget" name="widget" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>100</height>
-       </size>
+    <item row="1" column="1" colspan="2">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
