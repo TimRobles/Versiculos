@@ -588,14 +588,14 @@ class Principal(QMainWindow):
         print(buscarLetra(url))
 
     def elegirLetra(self, item):
-        if item==None: return
         previsual=""
         prevMenos1=""
         prevMenos2=""
         prevMas1=""
         prevMas2=""
 
-        previsual='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), item.text(0).replace("\n",'<br>'))
+        if item!=None:
+            previsual='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), item.text(0).replace("\n",'<br>'))
 
         if buscarItem(self.twLetras)>0:
             prevMenos1='<p style="text-align:center; font-family:%s;">%s</p>' % (self.cbFuente.currentText(), self.twLetras.topLevelItem(buscarItem(self.twLetras)-1).text(0).replace("\n",'<br>'))
