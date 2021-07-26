@@ -10,7 +10,6 @@ class Mostrar(QMainWindow):
         self.showMaximized()
 
 class Principal(QMainWindow):
-    EXIT_CODE_REBOOT = -123
     def __init__(self):
         QMainWindow.__init__(self)
         uic.loadUi("main.ui",self)
@@ -89,6 +88,9 @@ class Principal(QMainWindow):
         self.btnSiguienteC.clicked.connect(self.siguienteParrafo)
         self.btnAnteriorC.clicked.connect(self.anteriorParrafo)
 
+        self.btnBuscar.clicked.connect(self.buscarConcordancia)
+        self.twConcordancia.itemDoubleClicked.connect(self.usarVersiculo)
+
     def cargarFuentes(self):
         for fuente in QFontDatabase().families(QFontDatabase.Latin):
             self.cbFuente.addItem(fuente)
@@ -131,7 +133,6 @@ class Principal(QMainWindow):
                 print("Actualización", "Ya está actualizado")
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
-                # qApp.exit(Principal.EXIT_CODE_REBOOT)
                 self.mostrar.close()
                 self.close()
         except Exception as e:
@@ -657,11 +658,38 @@ class Principal(QMainWindow):
         self.twLetras.setCurrentItem(self.twLetras.topLevelItem(indice-1))
         self.elegirLetra(self.twLetras.currentItem())
 
-if __name__=="__main__":
-    currentExitCode = Principal.EXIT_CODE_REBOOT
-    while currentExitCode == Principal.EXIT_CODE_REBOOT:
-        app=QApplication(sys.argv) #Instancia para iniciar una aplicación
-        _main=Principal() #Crear un objeto de la clase / Como el Load en VBA
-        _main.show() #Mostrar la ventana
-        currentExitCode = app.exec_() #Ejecutar applicación
-        app=None
+    def buscarConcordancia(self):
+        texto=self.leConcordancia.text()
+        palabras=re.sub(' +', ' ', quitarTildes(texto)).split(" ")
+        patrones=[]
+        self.twConcordancia.clear()
+        if texto!="":
+            for palabra in palabras:
+                patrones.append(re.compile(palabra.upper()))
+
+            for version in self.biblia:
+                contadorCapitulo=0
+                libro=version["nombre"]
+                capitulos=version["capitulos"]
+                for capitulo in capitulos:
+                    contadorCapitulo+=1
+                    contadorVersiculo=0
+                    for versiculo in capitulo:
+                        contadorVersiculo+=1
+
+                        busqueda=True
+                        for patron in patrones:
+                            if not patron.search(quitarTildes(versiculo.upper())):
+                                busqueda=False
+
+                        if busqueda:
+                            fila=["%s %i:%i" % (libro, contadorCapitulo, contadorVersiculo), versiculo]
+                            insertarFila(self.twConcordancia, fila)
+
+    def usarVersiculo(self, item):
+        self.lePasaje.setText(item.text(0))
+
+app=QApplication(sys.argv) #Instancia para iniciar una aplicación
+_main=Principal() #Crear un objeto de la clase / Como el Load en VBA
+_main.show() #Mostrar la ventana
+app.exec_() #Ejecutar applicación
