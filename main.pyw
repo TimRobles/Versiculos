@@ -582,7 +582,8 @@ class Principal(QMainWindow):
                 insertarFila(self.twLetras, ["\n".join(parrafo)])
                 parrafo=[]
             else:
-                parrafo.append(letra)
+                if letra[0]!="#":
+                    parrafo.append(letra)
 
     def actualizarCancion(self, url):
         print(url)

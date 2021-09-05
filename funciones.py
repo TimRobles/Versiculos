@@ -24,7 +24,7 @@ def buscarItem(tw):
 def buscarTabla(tw, texto, columnas):
     try:
         rango = range(tw.topLevelItemCount())
-        palabras=re.sub(' +', ' ', texto).split(" ")
+        palabras=re.sub(' +', ' ', quitarTildes(texto)).split(" ")
         patrones=[]
         for palabra in palabras:
             patrones.append(re.compile(palabra.upper()))
@@ -37,7 +37,7 @@ def buscarTabla(tw, texto, columnas):
                 for j in columnas:
                     subBusqueda=False
                     for patron in patrones:
-                        subBusqueda=subBusqueda or (patron.search(tw.topLevelItem(i).text(j).upper()) is None)
+                        subBusqueda=subBusqueda or (patron.search(quitarTildes(tw.topLevelItem(i).text(j).upper())) is None)
                     busqueda=busqueda and subBusqueda
                 if busqueda:
                     tw.topLevelItem(i).setHidden(True)
