@@ -6,8 +6,23 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from bs4 import BeautifulSoup
 tildes={'Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U','Ü':'U'}
+abecedario=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 urlBase="https://api.scripture.api.bible"
 token='d1eded304a6a68a4befc685b42447bcf'
+
+def quitarAnotaciones(texto):
+    abecedarioCompuesto = [] + abecedario
+    for letra in abecedario:
+        for letra2 in abecedario:
+            abecedarioCompuesto.append(letra + letra2)
+
+    for letra in abecedarioCompuesto:
+        texto = texto.replace("[%s]" % letra, "")
+        texto = texto.replace("[%s]" % letra.lower(), "")
+        texto = texto.replace("(%s)" % letra, "")
+        texto = texto.replace("(%s)" % letra.lower(), "")
+
+    return texto
 
 def abrirPrograma(programa):
     if sys.platform == "win32":

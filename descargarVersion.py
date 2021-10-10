@@ -1,9 +1,10 @@
 from funciones import *
 libros=["Génesis", "Éxodo", "Levítico", "Números", "Deuteronomio", "Josué", "Jueces", "Rut", "1 Samuel", "2 Samuel", "1 Reyes", "2 Reyes", "1 Crónicas", "2 Crónicas", "Esdras", "Nehemías", "Ester", "Job", "Salmos", "Proverbios", "Eclesiastés", "Cantares", "Isaías", "Jeremías", "Lamentaciones", "Ezequiel", "Daniel", "Oseas", "Joel", "Amós", "Abdías", "Jonás", "Miqueas", "Nahúm", "Habacuc", "Sofonías", "Hageo", "Zacarías", "Malaquías", "Mateo", "Marcos", "Lucas", "Juan", "Hechos", "Romanos", "1 Corintios", "2 Corintios", "Gálatas", "Efesios", "Filipenses", "Colosenses", "1 Tesalonicenses", "2 Tesalonicenses", "1 Timoteo", "2 Timoteo", "Tito", "Filemón", "Hebreos", "Santiago", "1 Pedro", "2 Pedro", "1 Juan", "2 Juan", "3 Juan", "Judas", "Apocalipsis"]
 
-versiones=["TLA", "DHH", "NTV", "PDT"]
+versiones=["RVR1960"]
 urlBase="https://www.biblegateway.com/passage/?search="
 
+contador = 0
 for version in versiones:
     biblia=[]
     for libro in libros:
@@ -35,13 +36,19 @@ for version in versiones:
                     else:
                         if inicio:
                             inicio=False
-                            versiculo.append(separar[1])
+                            if len(separar)==3:
+                                for dato in separar[1:]:
+                                    versiculo.append(dato)
+                            else:
+                                versiculo.append("1 " + separar[-1])
                         else:
-                            textoCapitulo.append(" ".join(versiculo))
+                            contador+=1
+                            textoCapitulo.append(quitarAnotaciones(" ".join(versiculo)))
                             versiculo=[]
-                            versiculo.append(separar[1])
+                            for dato in separar:
+                                versiculo.append(dato)
 
-            textoCapitulo.append(" ".join(versiculo))
+            textoCapitulo.append(quitarAnotaciones(" ".join(versiculo)))
             diccionario["capitulos"].append(textoCapitulo)
 
         diccionario["capitulos"].append([])
