@@ -21,7 +21,7 @@ def quitarAnotaciones(texto):
         texto = texto.replace("[%s]" % letra.lower(), "")
         texto = texto.replace("(%s)" % letra, "")
         texto = texto.replace("(%s)" % letra.lower(), "")
-
+        
     return texto
 
 def abrirPrograma(programa):
