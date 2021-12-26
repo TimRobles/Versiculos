@@ -304,6 +304,11 @@
          <layout class="QGridLayout" name="gridLayout_21">
           <item row="1" column="0">
            <widget class="QTreeWidget" name="twLetras">
+            <property name="styleSheet">
+             <string notr="true">QTreeWidget::item::selected{
+background : red; 
+}</string>
+            </property>
             <property name="editTriggers">
              <set>QAbstractItemView::NoEditTriggers</set>
             </property>
