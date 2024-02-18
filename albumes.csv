@@ -1,0 +1,101 @@
+nombre;slug;artista_id;created_by_id;updated_by_id;foto;created_at;updated_at
+Yo te prometo;Yo-te-prometo;1;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Reckless Love;Reckless-Love;2;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Llegó Navidad;Llego-Navidad;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Singles;Singles;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Cosas Poderosas;Cosas-Poderosas;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Eres Mi Pasión;Eres-Mi-Pasion;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Mi Confianza Está En Ti;Mi-Confianza-Esta-En-Ti;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Más Fuerte Que Nunca;Mas-Fuerte-Que-Nunca;3;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Admirable;Admirable;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Eres Todopoderoso;Eres-Todopoderoso;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Cantaré De Tu Amor;Cantare-De-Tu-Amor;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Sígueme;Sigueme;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Fortaleza;Fortaleza;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Eres Tú;Eres-Tu;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Tu Amor;Tu-Amor;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Devoción;Devocion;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Encuentros;Encuentros;4;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Piedras Vivas;Piedras-Vivas;5;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Indestructible;Indestructible;6;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Proclamaré Tu Amor;Proclamare-Tu-Amor;7;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Proclamaré Tu Amor 2;Proclamare-Tu-Amor-2;7;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Nunca te diré adiós;Nunca-te-dire-adios;8;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Blessed;Blessed;9;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Hope;Hope;9;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Migthy To Save;Migthy-To-Save;9;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+No Other Name;No-Other-Name;10;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Jesus Is My Superhero;Jesus-Is-My-Superhero;11;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Super Strong God;Super-Strong-God;11;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Supernatural;Supernatural;11;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Tell The World;Tell-The-World;11;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Follow You;Follow-You;11;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Otros;Otros;12;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Look To You;Look-To-You;12;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Unidos Permanecemos;Unidos-Permanecemos;12;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Con Todo;Con-Todo;12;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Mi Roca;Mi-Roca;12;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Youth Revival;Youth-Revival;13;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Cerca De Ti;Cerca-De-Ti;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Con Manos Vacías;Con-Manos-Vacias;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Unplugged;Unplugged;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Te Daré Lo Mejor;Te-Dare-Lo-Mejor;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+El Aire De Tu Casa;El-Aire-De-Tu-Casa;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Ayer Te Vi...Fue Más Claro Que La Luna;Ayer-Te-Vi...Fue-Mas-Claro-Que-La-Luna;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+El Brillo De Mis Ojos;El-Brillo-De-Mis-Ojos;14;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Poderoso Dios;Poderoso-Dios;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Venga tu Reino;Venga-tu-Reino;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Muéstrame Tu Gloria;Muestrame-Tu-Gloria;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Viento Más Fuego;Viento-Mas-Fuego;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Gozo En Tu Presencia;Gozo-En-Tu-Presencia;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Sin reservas;Sin-reservas;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Es Por Tu Gracia;Es-Por-Tu-Gracia;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Cree Todo Es Posible;Cree-Todo-Es-Posible;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Transformados;Transformados;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Ilumina;Ilumina;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Amanece;Amanece;15;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Adoremos;Adoremos;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Te Exaltamos;Te-Exaltamos;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Grandes Son Tus Maravillas;Grandes-Son-Tus-Maravillas;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Poderoso;Poderoso;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+¡Alabadle!;¡Alabadle!;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Venció;Vencio;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Preparad El Camino;Preparad-El-Camino;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Enciende Una Luz;Enciende-Una-Luz;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Es Navidad;Es-Navidad;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Sana Nuestra Tierra;Sana-Nuestra-Tierra;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Dios De Pactos;Dios-De-Pactos;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Dios Es Bueno;Dios-Es-Bueno;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Alegría;Alegria;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Sobrenatural;Sobrenatural;16;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+10,000 reasons;10,000-reasons;17;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Levántate Jerusalém;Levantate-Jerusalem;18;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+La Colección de Petra en Español ;La-Coleccion-de-Petra-en-Español-;19;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+All For Love;All-For-Love;20;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Sencillos;Sencillos;21;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Altisimo Señor;Altisimo-Señor;22;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Juan Carlos Alvarado;Juan-Carlos-Alvarado;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Pablo Sierra;Pablo-Sierra;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Vertical;Vertical;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Marcos Vidal;Marcos-Vidal;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Daniel Calveti;Daniel-Calveti;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Esperanza de Vida;Esperanza-de-Vida;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Juan Luis Guerra;Juan-Luis-Guerra;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Hillsong Young;Hillsong-Young;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Gerry Márquez;Gerry-Marquez;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Aline Barros;Aline-Barros;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Omar Oropesa;Omar-Oropesa;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Íngrid Rosario;Ingrid-Rosario;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Ron Kenoly;Ron-Kenoly;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Don Moen;Don-Moen;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Claudio Freidzon;Claudio-Freidzon;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Miel San Marcos;Miel-San-Marcos;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Varios;Varios;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Palabra En Acción;Palabra-En-Accion;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Es Hora De Adorarle;Es-Hora-De-Adorarle;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Clamemos A Jesús;Clamemos-A-Jesus;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Homenaje A Jesús;Homenaje-A-Jesus;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+El Volverá;El-Volvera;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Planet Shackers;Planet-Shackers;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+Lakewood;Lakewood;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00
+La Ibi;La-Ibi;23;1;1;img/musica/album/sin-imagen.jpeg;2000-01-01 05:00:00+00:00;2000-01-01 05:00:00+00:00

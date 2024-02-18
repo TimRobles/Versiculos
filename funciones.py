@@ -21,7 +21,7 @@ def quitarAnotaciones(texto):
         texto = texto.replace("[%s]" % letra.lower(), "")
         texto = texto.replace("(%s)" % letra, "")
         texto = texto.replace("(%s)" % letra.lower(), "")
-        
+
     return texto
 
 def abrirPrograma(programa):
@@ -67,6 +67,7 @@ def buscarLetra(url):
         r=requests.get(url)
         soup = BeautifulSoup(r.text, 'lxml')
         letras = soup.find("pre", {'id':'letras'}).text
+        acordes = soup.find("pre", {'id':'acordes'}).text
         nombre = soup.findAll("h3")[1].text
         datos = soup.find("span", {'class':'post-meta'}).findAll("a")
         artista = datos[0].text
