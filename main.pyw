@@ -15,7 +15,6 @@ class MostrarPantalla(QMainWindow):
         uic.loadUi("mostrar pantalla.ui",self)
 
         self.setAttribute(Qt.WA_TranslucentBackground, True)
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.showMaximized()
 
 class Principal(QMainWindow):
@@ -40,7 +39,7 @@ class Principal(QMainWindow):
         colorFondox=self.data["colorFondox"]
         colorFuentex=self.data["colorFuentex"]
         self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
-        self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
+        self.mostrar_pantalla.label.setStyleSheet("background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
         self.animacionAltura=QPropertyAnimation(self.hsAltura, b'value')
@@ -554,7 +553,7 @@ class Principal(QMainWindow):
         colorFondox=self.data["colorFondox"]
         colorFuentex=self.data["colorFuentex"]
         self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.hsTransparencia.value()*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
-        self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.hsTransparencia.value()*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
+        self.mostrar_pantalla.label.setStyleSheet("background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.hsTransparencia.value()*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
 
     def escalarTransparenciaTotal(self, value):
         if value<self.sbTransparenciaMax.value():
@@ -582,10 +581,10 @@ class Principal(QMainWindow):
         colorFuentex=self.data["colorFuentex"]
         if self.hsTransparenciaTexto.value()==0:
             self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
-            self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
+            self.mostrar_pantalla.label.setStyleSheet("background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
         else:
             self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
-            self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
+            self.mostrar_pantalla.label.setStyleSheet("background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
 
         modificarData("colorFuente", [colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)])
         modificarData("colorFondo", [colorFondo[0], colorFondo[1], colorFondo[2], int(value*255/100)])
