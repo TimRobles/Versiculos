@@ -9,6 +9,15 @@ class Mostrar(QMainWindow):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.showMaximized()
 
+class MostrarPantalla(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+        uic.loadUi("mostrar pantalla.ui",self)
+
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.showMaximized()
+
 class Principal(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -22,11 +31,16 @@ class Principal(QMainWindow):
         self.cargarLibros()
 
         self.mostrar=Mostrar()
+        self.mostrar_pantalla=MostrarPantalla()
         self.mostrar.show()
+        self.mostrar_pantalla.show()
         self.datosMostrar()
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
+        colorFondox=self.data["colorFondox"]
+        colorFuentex=self.data["colorFuentex"]
         self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
+        self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.data["sbTransparenciaMax"]*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
 
         self.animacion=QPropertyAnimation(self.hsTransparencia, b'value')
         self.animacionAltura=QPropertyAnimation(self.hsAltura, b'value')
@@ -46,6 +60,9 @@ class Principal(QMainWindow):
         self.btnColorFuente.clicked.connect(self.seleccionarColorFuente)
         self.btnColorFondo.clicked.connect(self.seleccionarColorFondo)
 
+        self.btnColorFuentex.clicked.connect(self.seleccionarColorFuentex)
+        self.btnColorFondox.clicked.connect(self.seleccionarColorFondox)
+
         self.btnUpdate.clicked.connect(self.actualizarSistema)
 
         self.lePasaje.textChanged.connect(self.separar)
@@ -55,6 +72,12 @@ class Principal(QMainWindow):
         self.sbMargen.valueChanged.connect(self.guardarMargen)
         self.cbFuente.currentIndexChanged.connect(self.guardarFuente)
         self.sbFuente.valueChanged.connect(self.guardarFuenteTamano)
+
+        self.sbAlturax.valueChanged.connect(self.guardarAlturax)
+        self.sbAnchox.valueChanged.connect(self.guardarAnchox)
+        self.sbMargenx.valueChanged.connect(self.guardarMargenx)
+        self.cbFuentex.currentIndexChanged.connect(self.guardarFuentex)
+        self.sbFuentex.valueChanged.connect(self.guardarFuenteTamanox)
 
         self.deFecha.dateChanged.connect(self.cargarHistorial)
         self.cbHistorial.currentIndexChanged.connect(self.consultarHistorial)
@@ -94,6 +117,8 @@ class Principal(QMainWindow):
     def cargarFuentes(self):
         for fuente in QFontDatabase().families(QFontDatabase.Latin):
             self.cbFuente.addItem(fuente)
+        for fuente in QFontDatabase().families(QFontDatabase.Latin):
+            self.cbFuentex.addItem(fuente)
 
     def datosMostrar(self):
         self.data=leerData()
@@ -101,6 +126,11 @@ class Principal(QMainWindow):
         self.mostrar.label.setMinimumSize(self.data["sbAncho"], self.data["sbAltura"])
         self.mostrar.widget.setMaximumSize(self.data["sbAncho"], self.data["sbMargen"])
         self.mostrar.widget.setMinimumSize(self.data["sbAncho"], self.data["sbMargen"])
+
+        self.mostrar_pantalla.label.setMaximumSize(self.data["sbAnchox"], self.data["sbAlturax"])
+        self.mostrar_pantalla.label.setMinimumSize(self.data["sbAnchox"], self.data["sbAlturax"])
+        self.mostrar_pantalla.widget.setMaximumSize(self.data["sbAnchox"], self.data["sbMargenx"])
+        self.mostrar_pantalla.widget.setMinimumSize(self.data["sbAnchox"], self.data["sbMargenx"])
 
     def seleccionarColorFuente(self):
         try:
@@ -124,6 +154,28 @@ class Principal(QMainWindow):
         except Exception as e:
             print(e)
 
+    def seleccionarColorFuentex(self):
+        try:
+            colorInicial=QColor()
+            dato=self.data["colorFuentex"]
+            colorInicial.setRgb(dato[0], dato[1], dato[2], dato[3])
+            color = QColorDialog.getColor(colorInicial, self, "Color de Fuente")
+            modificarData("colorFuentex", [color.red(), color.green(), color.blue(), 255])
+            self.datosMostrar()
+        except Exception as e:
+            print(e)
+
+    def seleccionarColorFondox(self):
+        try:
+            colorInicial=QColor()
+            dato=self.data["colorFondox"]
+            colorInicial.setRgb(dato[0], dato[1], dato[2], dato[3])
+            color = QColorDialog.getColor(colorInicial, self, "Color de Fondo")
+            modificarData("colorFondox", [color.red(), color.green(), color.blue(), 255])
+            self.datosMostrar()
+        except Exception as e:
+            print(e)
+
     def actualizarSistema(self):
         try:
             g = git.cmd.Git(os.getcwd())
@@ -134,6 +186,7 @@ class Principal(QMainWindow):
             if "Updating" in msg:
                 print("Actualización", "Sistema actualizado")
                 self.mostrar.close()
+                self.mostrar_pantalla.close()
                 self.close()
         except Exception as e:
             print("Error", msg + "\n" + e)
@@ -182,6 +235,38 @@ class Principal(QMainWindow):
         else:
             self.cbFuente.setCurrentIndex(-1)
             modificarData("cbFuente", "")
+
+        
+        if not "colorFuentex" in self.data:
+            modificarData("colorFuentex", [0, 0, 0, 255])
+        if not "colorFondox" in self.data:
+            modificarData("colorFondox", [138, 226, 52, 255])
+        if "sbAlturax" in self.data:
+            self.sbAlturax.setValue(self.data["sbAlturax"])
+        else:
+            self.sbAlturax.setValue(100)
+            modificarData("sbAlturax", 100)
+        if "sbAnchox" in self.data:
+            self.sbAnchox.setValue(self.data["sbAnchox"])
+        else:
+            self.sbAnchox.setValue(100)
+            modificarData("sbAnchox", 100)
+        if "sbMargenx" in self.data:
+            self.sbMargenx.setValue(self.data["sbMargenx"])
+        else:
+            self.sbMargenx.setValue(100)
+            modificarData("sbMargenx", 100)
+        if "sbFuentex" in self.data:
+            self.sbFuentex.setValue(self.data["sbFuentex"])
+        else:
+            self.sbFuentex.setValue(12)
+            modificarData("sbFuentex", 12)
+        if "cbFuentex" in self.data:
+            buscarIndex(self.cbFuentex, self.data["cbFuentex"])
+        else:
+            self.cbFuentex.setCurrentIndex(-1)
+            modificarData("cbFuentex", "")
+
         if "cbBiblia" in self.data:
             self.cbBiblia.clear()
             for dato in self.data["cbBiblia"]:
@@ -262,7 +347,7 @@ class Principal(QMainWindow):
                 prevMas2=""
 
                 previsual='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s | %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, versiculo+1, libro["capitulos"][capitulo][versiculo], self.cbBiblia.currentText())
-
+                
                 if verMenos1 in range(self.cbVersiculo.count()-1): prevMenos1='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMenos1+1, libro["capitulos"][capitulo][verMenos1])
 
                 if verMenos2 in range(self.cbVersiculo.count()-1): prevMenos2='<p style="text-align:center; font-family:%s;"><strong>%s %i:%i</strong> %s</p>' % (self.cbFuente.currentText(), self.cbLibro.currentText(), capitulo+1, verMenos2+1, libro["capitulos"][capitulo][verMenos2])
@@ -322,6 +407,28 @@ class Principal(QMainWindow):
 
     def guardarFuenteTamano(self):
         modificarData("sbFuente", self.sbFuente.value())
+        if self.cbVersiculo.currentIndex()>0:
+            self.leerVersiculo()
+
+    def guardarAlturax(self):
+        modificarData("sbAlturax", self.sbAlturax.value())
+        self.datosMostrar()
+
+    def guardarAnchox(self):
+        modificarData("sbAnchox", self.sbAnchox.value())
+        self.datosMostrar()
+
+    def guardarMargenx(self):
+        modificarData("sbMargenx", self.sbMargenx.value())
+        self.datosMostrar()
+
+    def guardarFuentex(self):
+        modificarData("cbFuentex", self.cbFuentex.currentText())
+        if self.cbVersiculo.currentIndex()>0:
+            self.leerVersiculo()
+
+    def guardarFuenteTamanox(self):
+        modificarData("sbFuentex", self.sbFuentex.value())
         if self.cbVersiculo.currentIndex()>0:
             self.leerVersiculo()
 
@@ -428,6 +535,7 @@ class Principal(QMainWindow):
         if value==0 and self.limpiarVersiculo:
             self.limpiarVersiculo=False
             self.mostrar.label.clear()
+            self.mostrar_pantalla.label.clear()
             self.btnEnviar.setEnabled(True)
             self.btnLimpiar.setEnabled(True)
             self.btnOcultarMostrar.setEnabled(True)
@@ -438,10 +546,15 @@ class Principal(QMainWindow):
         if value<=10 and self.mostrarVersiculo:
             self.mostrar.label.clear()
             self.mostrar.label.setText(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuente.value()))
+            self.mostrar_pantalla.label.clear()
+            self.mostrar_pantalla.label.setText(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuentex.value()))
             self.mostrarVersiculo=False
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
+        colorFondox=self.data["colorFondox"]
+        colorFuentex=self.data["colorFuentex"]
         self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(self.hsTransparencia.value()*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
+        self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(self.hsTransparencia.value()*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
 
     def escalarTransparenciaTotal(self, value):
         if value<self.sbTransparenciaMax.value():
@@ -461,16 +574,23 @@ class Principal(QMainWindow):
             self.btnAnteriorV.setEnabled(True)
             self.btnSiguienteV.setEnabled(True)
             self.mostrar.label.clear()
+            self.mostrar_pantalla.label.clear()
 
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
+        colorFondox=self.data["colorFondox"]
+        colorFuentex=self.data["colorFuentex"]
         if self.hsTransparenciaTexto.value()==0:
             self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)))
+            self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)))
         else:
             self.mostrar.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondo[0], colorFondo[1], colorFondo[2],  int(value*255/100), colorFuente[0], colorFuente[1], colorFuente[2], 0))
+            self.mostrar_pantalla.label.setStyleSheet("border-radius:15px; background-color: rgba(%i, %i, %i, %i); color: rgba(%i, %i, %i, %i)" % (colorFondox[0], colorFondox[1], colorFondox[2],  int(value*255/100), colorFuentex[0], colorFuentex[1], colorFuentex[2], 0))
 
         modificarData("colorFuente", [colorFuente[0], colorFuente[1], colorFuente[2], int(value*255/100)])
         modificarData("colorFondo", [colorFondo[0], colorFondo[1], colorFondo[2], int(value*255/100)])
+        modificarData("colorFuentex", [colorFuentex[0], colorFuentex[1], colorFuentex[2], int(value*255/100)])
+        modificarData("colorFondox", [colorFondox[0], colorFondox[1], colorFondox[2], int(value*255/100)])
         if value==0:
             self.btnOcultarMostrar.setText("Mostrar")
         else:
