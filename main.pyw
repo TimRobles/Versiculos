@@ -103,6 +103,7 @@ class Principal(QMainWindow):
         self.btnBuscarCancion.clicked.connect(self.buscarCancion)
         self.btnCargarTodas.clicked.connect(self.cargarTodas)
         self.btnActualizar.clicked.connect(self.cargarCanciones)
+        self.btnAPI.clicked.connect(self.cargarAPI)
         self.leBuscar.textChanged.connect(self.buscarCancionRegistrada)
         self.twCancionesRegistradas.itemDoubleClicked.connect(self.agregarCancion)
         self.twCancionesHoy.itemDoubleClicked.connect(self.elegirCancion)
@@ -660,6 +661,17 @@ class Principal(QMainWindow):
                 album=v[1]
                 fila=[cancion, artista, album, url]
                 insertarFila(self.twCancionesRegistradas, fila)
+
+    def cargarAPI(self, item):
+        urlAPI = 'https://www.palabrayespiritu.org/musica/cancionero/api/'
+        self.leCancionSeleccionada.setText('API')
+        # self.canciones=leerCanciones()
+        # letras=self.canciones[item.text(5)][3]
+        self.twLetras.clear()
+        letras=requests.get(urlAPI).json()['letras']
+        for parrafo in letras:
+            if not parrafo[0] == "(":
+                insertarFila(self.twLetras, [parrafo])
 
     def buscarCancion(self):
         url=self.leUrlCancion.text()
