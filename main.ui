@@ -201,7 +201,7 @@
     <item row="2" column="0" colspan="5">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_1">
        <attribute name="title">
@@ -546,13 +546,6 @@
         </item>
         <item row="0" column="0" colspan="3">
          <layout class="QGridLayout" name="gridLayout_22">
-          <item row="0" column="6">
-           <widget class="QPushButton" name="btnGuardarCondC">
-            <property name="text">
-             <string>Guardar Condiciones</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="3">
            <widget class="QPushButton" name="btnCargarTodas">
             <property name="text">
@@ -561,13 +554,16 @@
            </widget>
           </item>
           <item row="0" column="7">
-           <widget class="QPushButton" name="btnCargarCondC">
+           <widget class="QPushButton" name="btnGuardarCondC">
             <property name="text">
-             <string>Cargar Condiciones</string>
+             <string>Guardar Condiciones</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="8">
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="leUrlCancion"/>
+          </item>
+          <item row="0" column="9">
            <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -580,20 +576,6 @@
             </property>
            </spacer>
           </item>
-          <item row="0" column="9">
-           <widget class="QPushButton" name="btnAnteriorC">
-            <property name="text">
-             <string>Anterior</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="btnBuscarCancion">
-            <property name="text">
-             <string>Buscar Canción</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_31">
             <property name="text">
@@ -601,10 +583,14 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="leUrlCancion"/>
+          <item row="0" column="10">
+           <widget class="QPushButton" name="btnAnteriorC">
+            <property name="text">
+             <string>Anterior</string>
+            </property>
+           </widget>
           </item>
-          <item row="0" column="5">
+          <item row="0" column="6">
            <spacer name="horizontalSpacer_7">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -617,10 +603,10 @@
             </property>
            </spacer>
           </item>
-          <item row="0" column="10">
-           <widget class="QPushButton" name="btnSiguienteC">
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btnBuscarCancion">
             <property name="text">
-             <string>Siguiente</string>
+             <string>Buscar Canción</string>
             </property>
            </widget>
           </item>
@@ -628,6 +614,27 @@
            <widget class="QPushButton" name="btnActualizar">
             <property name="text">
              <string>Actualizar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="11">
+           <widget class="QPushButton" name="btnSiguienteC">
+            <property name="text">
+             <string>Siguiente</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="8">
+           <widget class="QPushButton" name="btnCargarCondC">
+            <property name="text">
+             <string>Cargar Condiciones</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="5">
+           <widget class="QPushButton" name="btnAPI">
+            <property name="text">
+             <string>API</string>
             </property>
            </widget>
           </item>
