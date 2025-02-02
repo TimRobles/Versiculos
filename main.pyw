@@ -547,7 +547,11 @@ class Principal(QMainWindow):
             self.mostrar.label.clear()
             self.mostrar.label.setText(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuente.value()))
             self.mostrar_pantalla.label.clear()
-            self.mostrar_pantalla.label.setText(self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuentex.value()))
+            versiculo_text = self.tePrev.toHtml().replace('style="', 'style="font-size:%ipx; ' % self.sbFuentex.value())
+            if ' | ' in versiculo_text:
+                self.mostrar_pantalla.label.setText('<br>' + versiculo_text)
+            else:
+                self.mostrar_pantalla.label.setText(versiculo_text)
             self.mostrarVersiculo=False
         colorFondo=self.data["colorFondo"]
         colorFuente=self.data["colorFuente"]
