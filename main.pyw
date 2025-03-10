@@ -1,5 +1,22 @@
 from funciones import *
 
+class LetrasEditar(QMainWindow):
+    def __init__(self, url, cancion, artista, album, letras_texto):
+        QMainWindow.__init__(self)
+        uic.loadUi("letras_editar.ui",self)
+        self.url = url
+        self.cancion = cancion
+        self.artista = artista
+        self.album = album
+        self.teLetra.setText(letras_texto)
+        self.show()
+    
+    def closeEvent(self, event):
+        letras = self.teLetra.toPlainText()
+        print("Guardar letras")
+        modificarCanciones(self.url, [self.artista, self.album, self.cancion, letras])
+        event.accept()
+
 class Mostrar(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -635,7 +652,7 @@ class Principal(QMainWindow):
         for i in range(tw.topLevelItemCount()):
             item=tw.topLevelItem(i)
             buttonActualizar = QPushButton("Actualizar", tw)
-            buttonActualizar.clicked.connect(lambda checked=False, identificador=item.text(5): self.actualizarCancion(identificador))
+            buttonActualizar.clicked.connect(lambda checked=False, identificador=item: self.actualizarCancion(identificador))
             tw.setItemWidget(item, columna, buttonActualizar)
 
     def cargarCancionesHoy(self):
@@ -721,9 +738,16 @@ class Principal(QMainWindow):
                     parrafo.append(letra)
         insertarFila(self.twLetras, ["\n".join(parrafo)])
 
-    def actualizarCancion(self, url):
-        print(url)
-        print(buscarLetra(url))
+    def actualizarCancion(self, item):
+        #print(url)
+        #print(buscarLetra(url))
+        cancion = item.text(0)
+        artista = item.text(1)
+        album = item.text(2)
+        url = item.text(5)
+        letras_texto = self.canciones[item.text(5)][3]
+        self.ventana = LetrasEditar(url, cancion, artista, album, letras_texto)
+        self.ventana.show()
 
     def elegirLetra(self, item):
         previsual=""
