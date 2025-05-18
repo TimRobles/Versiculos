@@ -1,4 +1,41 @@
 from funciones import *
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+import uvicorn
+import threading
+
+api_app = FastAPI()
+letras_global = ""
+server_running = False
+
+@api_app.get("/letras", response_class=HTMLResponse)
+def get_letras():
+    return f"""
+    <html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Letras de la Canción</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }}
+            pre {{ white-space: pre-wrap; word-wrap: break-word; }}
+        </style>
+    </head>
+    <body>
+        <h2>Letras de la Canción</h2>
+        <pre>{letras_global}</pre>
+    </body>
+    </html>
+    """
+
+def api_mostrar(letras):
+    global letras_global, server_running
+    letras_global = letras.replace("\r", "").replace("\n", "<br>")
+    if not server_running:
+        server_running = True
+        threading.Thread(
+            target=lambda: uvicorn.run(api_app, host="0.0.0.0", port=5000, log_level="info"),
+            daemon=True
+        ).start()
 
 class LetrasEditar(QMainWindow):
     def __init__(self, url, cancion, artista, album, letras_texto):
@@ -686,13 +723,12 @@ class Principal(QMainWindow):
     def cargarAPI(self, item):
         urlAPI = 'https://www.palabrayespiritu.org/musica/cancionero/api/'
         self.leCancionSeleccionada.setText('API')
-        # self.canciones=leerCanciones()
-        # letras=self.canciones[item.text(5)][3]
         self.twLetras.clear()
         letras=requests.get(urlAPI).json()['letras']
         for parrafo in letras:
             if not parrafo[0] == "(":
                 insertarFila(self.twLetras, [parrafo])
+        api_mostrar("\n\n".join(letras))
 
     def buscarCancion(self):
         url=self.leUrlCancion.text()
@@ -737,6 +773,7 @@ class Principal(QMainWindow):
                 if letra[0]!="#":
                     parrafo.append(letra)
         insertarFila(self.twLetras, ["\n".join(parrafo)])
+        api_mostrar(letras)
 
     def actualizarCancion(self, item):
         #print(url)
