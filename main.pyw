@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import uvicorn
 import threading
+from datetime import datetime
 
 api_app = FastAPI()
 letras_global = ""
@@ -164,6 +165,8 @@ class Principal(QMainWindow):
         self.twLetras.itemDoubleClicked.connect(self.elegirLetra)
         self.btnSiguienteC.clicked.connect(self.siguienteParrafo)
         self.btnAnteriorC.clicked.connect(self.anteriorParrafo)
+        self.identificador = {}
+        self.btnActualizarLetra.clicked.connect(self.actualizarLetra)
 
         self.btnBuscar.clicked.connect(self.buscarConcordancia)
         self.twConcordancia.itemDoubleClicked.connect(self.usarVersiculo)
@@ -378,6 +381,7 @@ class Principal(QMainWindow):
         self.tePrevMas2.insertHtml("<div>" + prevMas2 + "</div>")
 
     def leerVersiculo(self):
+        self.btnActualizarLetra.setEnabled(False)
         if self.cbVersiculo.currentText()=="--VERSICULO--" or self.cbVersiculo.currentText()=="":
             self.tePrev.clear()
             self.tePrevMas1.clear()
@@ -721,14 +725,37 @@ class Principal(QMainWindow):
                 insertarFila(self.twCancionesRegistradas, fila)
 
     def cargarAPI(self, item):
+        start = datetime.now()
+        self.btnActualizarLetra.setEnabled(True)
+        print("Cargando API...")
         urlAPI = 'https://www.palabrayespiritu.org/musica/cancionero/api/'
+        print(urlAPI)
         self.leCancionSeleccionada.setText('API')
         self.twLetras.clear()
-        letras=requests.get(urlAPI).json()['letras']
-        for parrafo in letras:
-            if not parrafo[0] == "(":
-                insertarFila(self.twLetras, [parrafo])
-        api_mostrar("\n\n".join(letras))
+        self.identificador = {}
+        print("Letras de la canción:")
+        try:
+            response=requests.get(urlAPI)
+            print(response)
+            if response.status_code != 200:
+                raise Exception(f"Error al cargar la API: {response.status_code}")
+            response=response.json()
+            print(response)
+            letras=response['letras']
+            self.identificador=response['identificador']
+
+            for parrafo in letras:
+                if not parrafo[0] == "(":
+                    insertarFila(self.twLetras, [parrafo])
+            print("Total de letras:", len(letras))
+            # api_mostrar("\n\n".join(letras))
+            print("API cargada correctamente en", datetime.now() - start)
+        except Exception as e:
+            print("Error al cargar la API:", e)
+            self.leCancionSeleccionada.setText('Error al cargar la API')
+            self.twLetras.clear()
+            api_mostrar("Error al cargar la API")
+            print("API no cargada correctamente en", datetime.now() - start)
 
     def buscarCancion(self):
         url=self.leUrlCancion.text()
@@ -760,6 +787,7 @@ class Principal(QMainWindow):
         self.cargarCancionesHoy()
 
     def elegirCancion(self, item):
+        self.identificador = {}
         self.leCancionSeleccionada.setText(item.text(0))
         self.canciones=leerCanciones()
         letras=self.canciones[item.text(5)][3]
@@ -787,6 +815,10 @@ class Principal(QMainWindow):
         self.ventana.show()
 
     def elegirLetra(self, item):
+        if self.leCancionSeleccionada.text() == "API":
+            self.btnActualizarLetra.setEnabled(True)
+        else:
+            self.btnActualizarLetra.setEnabled(False)
         previsual=""
         prevMenos1=""
         prevMenos2=""
@@ -855,6 +887,22 @@ class Principal(QMainWindow):
             indice=buscarItem(self.twLetras)
         self.twLetras.setCurrentItem(self.twLetras.topLevelItem(indice-1))
         self.elegirLetra(self.twLetras.currentItem())
+
+    def actualizarLetra(self):
+        print(self.identificador)
+        print(self.tePrev.toPlainText())
+        try:
+            indice=buscarItem(self.twLetras)
+            [cancion, parrafo] = self.identificador[str(indice+1)]
+            url_actualizar = f"https://www.palabrayespiritu.org/musica/cancionero/modificar/api/{cancion}/{parrafo}/"
+            print(url_actualizar)
+            response = requests.post(url_actualizar, data={'letra': self.tePrev.toPlainText()})
+            if response.status_code == 200:
+                print("Letra actualizada correctamente.")
+                self.twLetras.topLevelItem(indice).setText(0, self.tePrev.toPlainText())
+        except Exception as e:
+            print("Error:", e)
+        
 
     def buscarConcordancia(self):
         texto=self.leConcordancia.text()

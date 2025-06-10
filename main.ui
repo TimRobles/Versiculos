@@ -14,28 +14,8 @@
    <string>Letras Culto</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_9">
-    <item row="6" column="2">
-     <widget class="QTextEdit" name="tePrevMenos2">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="4">
-     <widget class="QTextEdit" name="tePrevMas1">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="5">
+   <layout class="QGridLayout" name="gridLayout_11">
+    <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="6">
        <widget class="QPushButton" name="btnColorFuente">
@@ -145,60 +125,97 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="3">
-     <widget class="QLabel" name="lblPrevMas1">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Previsualización +1:</string>
-      </property>
-     </widget>
+    <item row="1" column="0">
+     <layout class="QGridLayout" name="gridLayout_2x">
+      <item row="0" column="7">
+       <widget class="QPushButton" name="btnColorFondox">
+        <property name="text">
+         <string>Color Fondo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="11">
+       <widget class="QSpinBox" name="sbFuentex">
+        <property name="maximum">
+         <number>99</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QComboBox" name="cbFuentex"/>
+      </item>
+      <item row="0" column="9">
+       <widget class="QLabel" name="label_8x">
+        <property name="text">
+         <string>Fuente:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_2x">
+        <property name="text">
+         <string>Ancho Max:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="8">
+       <spacer name="horizontalSpacer_6x">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="5">
+       <widget class="QSpinBox" name="sbMargenx">
+        <property name="maximum">
+         <number>2000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QPushButton" name="btnColorFuentex">
+        <property name="text">
+         <string>Color Fuente</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelx">
+        <property name="text">
+         <string>Altura:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="sbAlturax">
+        <property name="maximum">
+         <number>2000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QSpinBox" name="sbAnchox">
+        <property name="maximum">
+         <number>2000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_4x">
+        <property name="text">
+         <string>Margen Inferior:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="6" column="3">
-     <widget class="QLabel" name="lblPrevMas2">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Previsualización +2:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1" colspan="4">
-     <widget class="QTextEdit" name="tePrev">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>Previsualización:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="4">
-     <widget class="QTextEdit" name="tePrevMas2">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0" colspan="5">
+    <item row="2" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>1</number>
@@ -644,7 +661,7 @@
       </widget>
      </widget>
     </item>
-    <item row="3" column="0" colspan="5">
+    <item row="3" column="0">
      <layout class="QGridLayout" name="gridLayout_7">
       <item row="0" column="11">
        <widget class="QSlider" name="hsTransparenciaTexto">
@@ -774,127 +791,132 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="2">
-     <widget class="QTextEdit" name="tePrevMenos1">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="2">
-     <widget class="QLabel" name="lblPrevMenos1">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Previsualización -1:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" colspan="2">
-     <widget class="QLabel" name="lblPrevMenos2">
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Previsualización -2:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="5">
-     <layout class="QGridLayout" name="gridLayout_2x">
-      <item row="0" column="7">
-       <widget class="QPushButton" name="btnColorFondox">
-        <property name="text">
-         <string>Color Fondo</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="11">
-       <widget class="QSpinBox" name="sbFuentex">
-        <property name="maximum">
-         <number>99</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="10">
-       <widget class="QComboBox" name="cbFuentex"/>
-      </item>
-      <item row="0" column="9">
-       <widget class="QLabel" name="label_8x">
-        <property name="text">
-         <string>Fuente:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_2x">
-        <property name="text">
-         <string>Ancho Max:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="8">
-       <spacer name="horizontalSpacer_6x">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+    <item row="4" column="0">
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="1">
+       <widget class="QTextEdit" name="tePrev">
+        <property name="maximumSize">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>16777215</width>
+          <height>100</height>
          </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="5">
-       <widget class="QSpinBox" name="sbMargenx">
-        <property name="maximum">
-         <number>2000</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="6">
-       <widget class="QPushButton" name="btnColorFuentex">
-        <property name="text">
-         <string>Color Fuente</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="labelx">
+       <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Altura:</string>
+         <string>Previsualización:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="btnActualizarLetra">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0">
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblPrevMenos1">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previsualización -1:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSpinBox" name="sbAlturax">
-        <property name="maximum">
-         <number>2000</number>
+       <widget class="QTextEdit" name="tePrevMenos1">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="lblPrevMas1">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previsualización +1:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QSpinBox" name="sbAnchox">
-        <property name="maximum">
-         <number>2000</number>
+       <widget class="QTextEdit" name="tePrevMas1">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
         </property>
        </widget>
       </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="label_4x">
+     </layout>
+    </item>
+    <item row="6" column="0">
+     <layout class="QGridLayout" name="gridLayout_9">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblPrevMenos2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Margen Inferior:</string>
+         <string>Previsualización -2:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTextEdit" name="tePrevMenos2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="lblPrevMas2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Previsualización +2:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QTextEdit" name="tePrevMas2">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
         </property>
        </widget>
       </item>
